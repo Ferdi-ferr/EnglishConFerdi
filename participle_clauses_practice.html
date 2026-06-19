@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Participle Clauses — Practice · B2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 1rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .instructions {
+      max-width: 780px;
+      margin: 0 auto 1.8rem;
+      padding: 0 1.5rem;
+    }
+    .instructions-box {
+      background: #eef3f8;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+    .instructions-box strong { font-weight: 600; }
+
+    /* Progress */
+    .progress-wrap {
+      max-width: 780px;
+      margin: 0 auto 1.6rem;
+      padding: 0 1.5rem;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-bottom: .4rem;
+    }
+    .progress-bar-bg {
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+
+    /* Questions */
+    .questions {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .q-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .q-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .85rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .q-number {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: #eef3f8;
+      padding: .2rem .55rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .q-status {
+      margin-left: auto;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 99px;
+      display: none;
+    }
+    .q-status.correct { display: inline-block; background: #eaf5ec; color: var(--green); }
+    .q-status.wrong   { display: inline-block; background: #fdf0ee; color: var(--red); }
+
+    .q-body { padding: 1.1rem 1.2rem; }
+
+    .sentences {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      margin-bottom: 1rem;
+    }
+    .sentence {
+      display: flex;
+      gap: .55rem;
+      align-items: flex-start;
+      font-size: .93rem;
+      line-height: 1.55;
+    }
+    .s-label {
+      flex-shrink: 0;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #e8e4dc;
+      color: #6a5f55;
+      padding: .18rem .45rem;
+      border-radius: 4px;
+      margin-top: .2rem;
+    }
+
+    /* Text input */
+    .input-wrap { position: relative; margin-bottom: .75rem; }
+
+    .answer-input {
+      width: 100%;
+      padding: .75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .92rem;
+      color: var(--text);
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color .15s, background .15s;
+      resize: none;
+      min-height: 52px;
+    }
+    .answer-input:focus { border-color: var(--accent); background: #fff; }
+    .answer-input.correct-input {
+      border-color: var(--green);
+      background: #eaf5ec;
+    }
+    .answer-input.wrong-input {
+      border-color: var(--red);
+      background: #fdf0ee;
+    }
+    .answer-input:disabled { cursor: default; }
+
+    /* Submit button */
+    .btn-submit {
+      padding: .55rem 1.2rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+      margin-bottom: .75rem;
+    }
+    .btn-submit:hover { opacity: .85; }
+    .btn-submit:disabled { opacity: .4; cursor: default; }
+
+    /* Feedback */
+    .feedback-box {
+      display: none;
+      padding: .8rem 1rem;
+      border-radius: 8px;
+      font-size: .87rem;
+      line-height: 1.6;
+      margin-bottom: .75rem;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.correct-fb {
+      background: #eaf5ec;
+      border-left: 3px solid var(--green);
+      color: #1e5c2c;
+    }
+    .feedback-box.wrong-fb {
+      background: #fdf0ee;
+      border-left: 3px solid var(--red);
+      color: #8a2218;
+    }
+    .feedback-box strong { font-weight: 600; }
+
+    /* Answer reveal */
+    .answer-reveal {
+      display: none;
+      background: #fdf6e8;
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: .75rem 1rem;
+      font-size: .87rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: .75rem;
+    }
+    .answer-reveal.show { display: block; }
+    .answer-reveal .reveal-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      display: block;
+      margin-bottom: .3rem;
+    }
+    .answer-reveal .reveal-text {
+      font-style: italic;
+      color: var(--text);
+    }
+
+    /* Per-question action buttons */
+    .q-actions {
+      display: none;
+      gap: .6rem;
+      flex-wrap: wrap;
+    }
+    .q-actions.show { display: flex; }
+
+    .btn-retry {
+      padding: .5rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--card-bg);
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .14s, border-color .14s;
+    }
+    .btn-retry:hover { background: var(--bg); border-color: var(--text-muted); }
+
+    .btn-show-answer {
+      padding: .5rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--yellow);
+      background: var(--card-bg);
+      font-family: 'Inter', sans-serif;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--yellow);
+      cursor: pointer;
+      transition: background .14s;
+    }
+    .btn-show-answer:hover { background: #fdf6e8; }
+
+    /* Final score */
+    .final-score {
+      display: none;
+      max-width: 780px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+    .final-score.show { display: block; }
+    .score-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      text-align: center;
+    }
+    .score-emoji { font-size: 2.5rem; margin-bottom: .6rem; }
+    .score-title {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .score-text {
+      font-size: .92rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .score-text strong { color: var(--text); }
+
+    /* Bottom nav */
+    .page-nav {
+      max-width: 780px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 600;
+      padding: .65rem 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-nav-link:hover { opacity: .85; }
+    .btn-nav-link.secondary {
+      background: var(--card-bg);
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      box-shadow: none;
+    }
+    .btn-nav-link.secondary:hover { background: #eef3f8; }
+
+    .btn-restart-all {
+      padding: .65rem 1.4rem;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--card-bg);
+      font-family: 'Inter', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .14s;
+    }
+    .btn-restart-all:hover { background: var(--bg); }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Water -->
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <!-- Road deck -->
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <!-- Left tower -->
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <!-- Left tower top battlements -->
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <!-- Left tower walkway arch -->
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <!-- Right tower -->
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <!-- Right tower top battlements -->
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <!-- Right tower walkway arch -->
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <!-- High walkway between towers -->
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <!-- Suspension cables left -->
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <!-- Suspension cables right -->
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <!-- HOME label -->
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="index.html">Home</a><span>›</span>
+    <a href="b2.html">B2</a><span>›</span>
+    Grammar<span>›</span>
+    Participle Clauses<span>›</span>
+    <span>Practice</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · B2</p>
+    <h1>Participle Clauses — Practice</h1>
+  </div>
+
+  <div class="instructions">
+    <div class="instructions-box">
+      <strong>Instructions:</strong> Read the two sentences and combine them into one using a participle clause. Type your answer in the box and press <strong>Check</strong>.<br><br>
+      ⚠ <strong>Remember:</strong> decide whether the clause is defining (no commas) or non-defining (commas), and which participle form to use (-ing, -ed, or having + past participle).
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progressText">0 of 10 answered</span>
+      <span id="scoreText">Score: 0</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="questions" id="questionsContainer"></div>
+
+  <div class="final-score" id="finalScore">
+    <div class="score-card">
+      <div class="score-emoji" id="scoreEmoji">🎉</div>
+      <div class="score-title" id="scoreTitle"></div>
+      <div class="score-text" id="scoreDesc"></div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="participle_clauses_recognition.html" class="btn-nav-link secondary">← Previous: Recognition</a>
+    <button class="btn-restart-all" onclick="restartAll()">↺ Restart exercise</button>
+    <a href="b2.html" class="btn-nav-link">Back to B2 →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        a: "The man works at the university.",
+        b: "The man studies ancient languages.",
+        canonical: "The man studying ancient languages works at the university.",
+        hint: "The second sentence tells us <em>which</em> man — think about whether that information is essential or extra, and what form the verb <em>study</em> takes as a participle.",
+        explanation: "<strong>Studying ancient languages</strong> is a defining participle clause — it identifies <em>which</em> man. No commas. We use <strong>-ing</strong> because the man is actively doing the studying."
+      },
+      {
+        a: "The letter arrived this morning.",
+        b: "The letter was sent from Paris.",
+        canonical: "The letter sent from Paris arrived this morning.",
+        hint: "The letter didn't send itself — it was sent by someone. Think about whether the noun is doing or receiving the action, and choose your participle accordingly.",
+        explanation: "<strong>Sent from Paris</strong> is a defining participle clause. We use <strong>-ed</strong> because the letter received the action — it was sent (passive meaning). No commas as the information is essential."
+      },
+      {
+        a: "The journalist won three awards.",
+        b: "The journalist was known for her investigative work.",
+        canonical: "The journalist, known for her investigative work, won three awards.",
+        hint: "The journalist is already identified by name (or context). Does the second sentence tell us <em>which</em> journalist, or does it add extra information about her?",
+        explanation: "<strong>Known for her investigative work</strong> is a non-defining participle clause — it adds extra information about an already identified person. Commas are required. We use <strong>-ed</strong> because she was known by others (passive meaning)."
+      },
+      {
+        a: "The children play in the garden every afternoon.",
+        b: "The children live next door.",
+        canonical: "The children living next door play in the garden every afternoon.",
+        hint: "Not all children — only a specific group. Does the second sentence help identify which ones? Think about commas and the form of the verb <em>live</em>.",
+        explanation: "<strong>Living next door</strong> is a defining participle clause — it tells us <em>which</em> children. No commas. We use <strong>-ing</strong> because the children are the ones doing the living (active meaning)."
+      },
+      {
+        a: "The documents were missing.",
+        b: "The documents were needed for the trial.",
+        canonical: "The documents needed for the trial were missing.",
+        hint: "The documents didn't need themselves — they were needed by someone. Think about active vs passive, and whether the clause identifies which documents.",
+        explanation: "<strong>Needed for the trial</strong> is a defining participle clause. We use <strong>-ed</strong> because the documents received the action — they were needed (passive meaning). No commas as the clause specifies which documents."
+      },
+      {
+        a: "She finally apologised to her colleague.",
+        b: "She had realised her mistake.",
+        canonical: "Having realised her mistake, she finally apologised to her colleague.",
+        hint: "One of these actions happened clearly before the other. What structure do we use to show that one action was completed before another began?",
+        explanation: "<strong>Having realised her mistake</strong> shows a completed action that happened before the apology. This is the <strong>having + past participle</strong> structure. Both clauses share the same subject (<em>she</em>), which is required."
+      },
+      {
+        a: "The hotel offers stunning views of the bay.",
+        b: "The hotel was designed by a famous architect.",
+        canonical: "The hotel, designed by a famous architect, offers stunning views of the bay.",
+        hint: "Is the hotel already identified? Does the second sentence tell us which hotel, or add extra detail about it? That will determine your commas.",
+        explanation: "<strong>Designed by a famous architect</strong> is a non-defining participle clause — it adds extra information about a hotel that is already identified. Commas required. We use <strong>-ed</strong> because the hotel was designed by someone (passive meaning)."
+      },
+      {
+        a: "The volunteers helped rebuild the community centre.",
+        b: "The volunteers were motivated by a desire to give back.",
+        canonical: "The volunteers, motivated by a desire to give back, helped rebuild the community centre.",
+        hint: "Are we talking about a specific, already-identified group of volunteers, or do we need the clause to tell us which ones? Consider whether commas are needed.",
+        explanation: "<strong>Motivated by a desire to give back</strong> is a non-defining participle clause — the volunteers are already identified as a group. Commas required. We use <strong>-ed</strong> because they were motivated by something external (passive meaning)."
+      },
+      {
+        a: "The app has over ten million users worldwide.",
+        b: "The app was developed by a small startup.",
+        canonical: "The app developed by a small startup has over ten million users worldwide.",
+        hint: "Does the second sentence tell us which app, or is the app already fully identified? Your answer to that determines whether you need commas.",
+        explanation: "<strong>Developed by a small startup</strong> is a defining participle clause — it identifies which app. No commas. We use <strong>-ed</strong> because the app was developed by someone (passive meaning)."
+      },
+      {
+        a: "He submitted the final draft to his editor.",
+        b: "He had spent three months rewriting it.",
+        canonical: "Having spent three months rewriting it, he submitted the final draft to his editor.",
+        hint: "Think about the order of events. Which action was completed first? What structure highlights that one action was finished before the next one started?",
+        explanation: "<strong>Having spent three months rewriting it</strong> shows a completed prior action. This is the <strong>having + past participle</strong> structure. The subject of both clauses is the same (<em>he</em>), which is required for this structure."
+      }
+    ];
+
+    // Normalise: lowercase, trim, strip trailing punctuation, collapse spaces, remove accents
+    function normalise(str) {
+      return str
+        .toLowerCase()
+        .trim()
+        .replace(/[.,!?;:]+$/g, '')   // trailing punctuation
+        .replace(/\s+/g, ' ')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, ''); // strip diacritics
+    }
+
+    function isCorrect(input, canonical) {
+      return normalise(input) === normalise(canonical);
+    }
+
+    let answered = new Array(QUESTIONS.length).fill(false);
+    let scores   = new Array(QUESTIONS.length).fill(null);
+
+    function updateProgress() {
+      const done    = answered.filter(Boolean).length;
+      const correct = scores.filter(s => s === true).length;
+      document.getElementById('progressText').textContent  = `${done} of ${QUESTIONS.length} answered`;
+      document.getElementById('scoreText').textContent     = `Score: ${correct}`;
+      document.getElementById('progressFill').style.width  = `${(done / QUESTIONS.length) * 100}%`;
+      if (done === QUESTIONS.length) showFinalScore(correct);
+    }
+
+    function checkAnswer(qi) {
+      if (answered[qi]) return;
+      const q       = QUESTIONS[qi];
+      const card    = document.getElementById(`q-${qi}`);
+      const input   = card.querySelector('.answer-input');
+      const fb      = card.querySelector('.feedback-box');
+      const actions = card.querySelector('.q-actions');
+      const status  = card.querySelector('.q-status');
+      const val     = input.value.trim();
+      if (!val) return;
+
+      const correct = isCorrect(val, q.canonical);
+
+      input.disabled = true;
+      card.querySelector('.btn-submit').disabled = true;
+
+      if (correct) {
+        input.classList.add('correct-input');
+        fb.className = 'feedback-box show correct-fb';
+        fb.innerHTML = `✓ <strong>Well done!</strong> ${q.explanation}`;
+        status.className   = 'q-status correct';
+        status.textContent = '✓ Correct';
+        // hide "see answer" when correct
+        card.querySelector('.btn-show-answer').style.display = 'none';
+      } else {
+        input.classList.add('wrong-input');
+        fb.className = 'feedback-box show wrong-fb';
+        fb.innerHTML = `✗ <strong>Not quite.</strong> ${q.hint}`;
+        status.className   = 'q-status wrong';
+        status.textContent = '✗ Incorrect';
+      }
+
+      actions.classList.add('show');
+      answered[qi] = true;
+      scores[qi]   = correct;
+      updateProgress();
+    }
+
+    function retryQuestion(qi) {
+      const card    = document.getElementById(`q-${qi}`);
+      const input   = card.querySelector('.answer-input');
+      const fb      = card.querySelector('.feedback-box');
+      const reveal  = card.querySelector('.answer-reveal');
+      const actions = card.querySelector('.q-actions');
+      const status  = card.querySelector('.q-status');
+      const submit  = card.querySelector('.btn-submit');
+      const showBtn = card.querySelector('.btn-show-answer');
+
+      input.disabled = false;
+      input.value    = '';
+      input.className = 'answer-input';
+      input.focus();
+
+      fb.className      = 'feedback-box';
+      fb.innerHTML      = '';
+      reveal.className  = 'answer-reveal';
+      actions.classList.remove('show');
+      status.className  = 'q-status';
+      submit.disabled   = false;
+      showBtn.style.display = '';
+
+      answered[qi] = false;
+      scores[qi]   = null;
+      document.getElementById('finalScore').classList.remove('show');
+      updateProgress();
+    }
+
+    function showAnswer(qi) {
+      const q      = QUESTIONS[qi];
+      const card   = document.getElementById(`q-${qi}`);
+      const reveal = card.querySelector('.answer-reveal');
+      reveal.className = 'answer-reveal show';
+      reveal.innerHTML = `<span class="reveal-label">Model answer</span><span class="reveal-text">${q.canonical}</span>`;
+      // hide the button after clicking
+      card.querySelector('.btn-show-answer').style.display = 'none';
+    }
+
+    function showFinalScore(correct) {
+      const total = QUESTIONS.length;
+      const pct   = correct / total;
+      let emoji, title, desc;
+      if (pct === 1)      { emoji = '🏆'; title = 'Perfect score!';   desc = `You combined all <strong>${total}</strong> sentences correctly. Outstanding work!`; }
+      else if (pct >= .8) { emoji = '🎉'; title = 'Great job!';       desc = `<strong>${correct} out of ${total}</strong> correct. You're handling participle clauses with confidence — review the ones you missed.`; }
+      else if (pct >= .6) { emoji = '👍'; title = 'Good effort!';     desc = `<strong>${correct} out of ${total}</strong> correct. Keep practising — pay attention to commas and -ing vs -ed.`; }
+      else                { emoji = '📖'; title = 'Keep practising!'; desc = `<strong>${correct} out of ${total}</strong> correct. Review the Explanation and Recognition exercises, then try again.`; }
+
+      document.getElementById('scoreEmoji').textContent = emoji;
+      document.getElementById('scoreTitle').textContent = title;
+      document.getElementById('scoreDesc').innerHTML    = desc;
+      document.getElementById('finalScore').classList.add('show');
+      document.getElementById('finalScore').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function restartAll() {
+      answered = new Array(QUESTIONS.length).fill(false);
+      scores   = new Array(QUESTIONS.length).fill(null);
+      QUESTIONS.forEach((_, i) => retryQuestion(i));
+      document.getElementById('finalScore').classList.remove('show');
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleKey(e, qi) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        checkAnswer(qi);
+      }
+    }
+
+    function buildQuestions() {
+      const container = document.getElementById('questionsContainer');
+      QUESTIONS.forEach((q, qi) => {
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `q-${qi}`;
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-number">Question ${qi + 1}</span>
+            <span class="q-status"></span>
+          </div>
+          <div class="q-body">
+            <div class="sentences">
+              <div class="sentence">
+                <span class="s-label">A</span>
+                <span>${q.a}</span>
+              </div>
+              <div class="sentence">
+                <span class="s-label">B</span>
+                <span>${q.b}</span>
+              </div>
+            </div>
+            <div class="input-wrap">
+              <textarea
+                class="answer-input"
+                rows="2"
+                placeholder="Type your combined sentence here…"
+                onkeydown="handleKey(event, ${qi})"
+              ></textarea>
+            </div>
+            <button class="btn-submit" onclick="checkAnswer(${qi})">Check</button>
+            <div class="feedback-box"></div>
+            <div class="answer-reveal"></div>
+            <div class="q-actions">
+              <button class="btn-retry" onclick="retryQuestion(${qi})">↺ Try again</button>
+              <button class="btn-show-answer" onclick="showAnswer(${qi})">See answer</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    buildQuestions();
+    updateProgress();
+  </script>
+
+</body>
+</html>
