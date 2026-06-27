@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Forms — Recognition · B2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 1rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .instructions {
+      max-width: 780px;
+      margin: 0 auto 1.8rem;
+      padding: 0 1.5rem;
+    }
+    .instructions-box {
+      background: #eef3f8;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+    .instructions-box strong { font-weight: 600; }
+
+    .progress-wrap {
+      max-width: 780px;
+      margin: 0 auto 1.6rem;
+      padding: 0 1.5rem;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-bottom: .4rem;
+    }
+    .progress-bar-bg {
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+
+    .questions {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .q-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .q-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .85rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .q-number {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: #eef3f8;
+      padding: .2rem .55rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .q-status {
+      margin-left: auto;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .2rem .6rem;
+      border-radius: 99px;
+      display: none;
+    }
+    .q-status.correct { display: inline-block; background: #eaf5ec; color: var(--green); }
+    .q-status.wrong   { display: inline-block; background: #fdf0ee; color: var(--red); }
+
+    .q-body { padding: 1.1rem 1.2rem; }
+
+    .q-sentence {
+      font-size: .95rem;
+      line-height: 1.65;
+      margin-bottom: 1.1rem;
+      padding: .75rem .95rem;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .q-sentence .gap {
+      display: inline-block;
+      border-bottom: 2px solid var(--accent);
+      min-width: 120px;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0 .2rem;
+    }
+    .q-context {
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: .4rem;
+      display: block;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: .7rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      display: flex;
+      align-items: flex-start;
+      gap: .7rem;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--accent); background: #f0f4f8; }
+    .option-btn:disabled { cursor: default; }
+
+    .opt-letter {
+      flex-shrink: 0;
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-radius: 4px;
+      padding: .15rem .4rem;
+      margin-top: .1rem;
+    }
+    .opt-text { flex: 1; }
+
+    .option-btn.correct { border-color: var(--green); background: #eaf5ec; }
+    .option-btn.correct .opt-letter { background: var(--green); color: #fff; }
+    .option-btn.wrong   { border-color: var(--red);   background: #fdf0ee; }
+    .option-btn.wrong   .opt-letter { background: var(--red);   color: #fff; }
+    .option-btn.dimmed  { opacity: .4; }
+
+    .feedback-box {
+      display: none;
+      margin-top: .9rem;
+      padding: .8rem 1rem;
+      border-radius: 8px;
+      font-size: .87rem;
+      line-height: 1.6;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.correct-fb { background: #eaf5ec; border-left: 3px solid var(--green); color: #1e5c2c; }
+    .feedback-box.wrong-fb   { background: #fdf0ee; border-left: 3px solid var(--red);   color: #8a2218; }
+    .feedback-box strong { font-weight: 600; }
+
+    .final-score {
+      display: none;
+      max-width: 780px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+    .final-score.show { display: block; }
+    .score-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      text-align: center;
+    }
+    .score-emoji { font-size: 2.5rem; margin-bottom: .6rem; }
+    .score-title { font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: .5rem; }
+    .score-text  { font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
+    .score-text strong { color: var(--text); }
+
+    .page-nav {
+      max-width: 780px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 600;
+      padding: .65rem 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-nav-link:hover { opacity: .85; }
+    .btn-nav-link.secondary {
+      background: var(--card-bg);
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      box-shadow: none;
+    }
+    .btn-nav-link.secondary:hover { background: #eef3f8; }
+    .btn-nav-link.locked-nav {
+      background: var(--card-bg);
+      color: var(--text-muted);
+      border: 1.5px dashed var(--border);
+      box-shadow: none;
+      pointer-events: none;
+      opacity: .5;
+    }
+
+    .btn-restart-all {
+      padding: .65rem 1.4rem;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--card-bg);
+      font-family: 'Inter', sans-serif;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background .14s;
+    }
+    .btn-restart-all:hover { background: var(--bg); }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a><span>›</span>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/b2.html">B2</a><span>›</span>
+    Grammar<span>›</span>
+    Future Forms<span>›</span>
+    <span>Recognition</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · B2</p>
+    <h1>Future Forms — Recognition</h1>
+  </div>
+
+  <div class="instructions">
+    <div class="instructions-box">
+      <strong>Instructions:</strong> Read the context and choose the correct future form to complete the sentence. Pay attention to contextual clues — time expressions, evidence, prior decisions, and arrangements.<br><br>
+      ⚠ <strong>Watch out for:</strong> the difference between <em>will</em> and <em>going to</em>, confirmed arrangements vs intentions, and future forms in time clauses.
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="progressText">0 of 10 answered</span>
+      <span id="scoreText">Score: 0</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="questions" id="questionsContainer"></div>
+
+  <div class="final-score" id="finalScore">
+    <div class="score-card">
+      <div class="score-emoji" id="scoreEmoji"></div>
+      <div class="score-title" id="scoreTitle"></div>
+      <div class="score-text"  id="scoreDesc"></div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="future_forms_explanation.html" class="btn-nav-link secondary">← Previous: Explanation</a>
+    <button class="btn-restart-all" onclick="restartAll()">↺ Restart exercise</button>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/b2.html" class="btn-nav-link">Back to B2 →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        sentence: "Look at those dark clouds gathering over the mountains. It _____ any minute now.",
+        context: "There is visible evidence of an imminent event.",
+        options: ["will rain", "is going to rain", "is raining", "rains"],
+        correct: 1,
+        explanation: "The dark clouds are <strong>visible evidence</strong> that rain is imminent — this is exactly the context for <strong>be going to</strong> (prediction based on present evidence). <em>Will rain</em> would be an opinion-based prediction with no visible evidence; <em>is raining</em> refers to the present; <em>rains</em> is a fixed-schedule use."
+      },
+      {
+        sentence: "A: The phone is ringing. B: Don't worry, I _____ it.",
+        context: "Someone makes a spontaneous decision at the moment of speaking.",
+        options: ["am going to get", "am getting", "will get", "get"],
+        correct: 2,
+        explanation: "This is a <strong>spontaneous decision</strong> made at the moment of speaking — the classic use of <strong>will</strong>. <em>Am going to get</em> would imply a prior decision made before the phone rang; <em>am getting</em> implies a confirmed arrangement; <em>get</em> is the simple present."
+      },
+      {
+        sentence: "I can't make it to the meeting on Thursday. That's a shame — the director _____ the new strategy at 10.",
+        context: "The meeting has been scheduled and confirmed with the director.",
+        options: ["will present", "is going to present", "is presenting", "presents"],
+        correct: 2,
+        explanation: "This is a <strong>confirmed arrangement</strong> involving another person (the director) — the classic use of the <strong>present progressive</strong> for future plans. <em>Will present</em> is a spontaneous prediction; <em>is going to present</em> implies personal intention rather than a confirmed meeting; <em>presents</em> would suggest a fixed timetable."
+      },
+      {
+        sentence: "The semester abroad programme _____ on 3 September. Make sure you register before then.",
+        context: "An official institutional calendar date.",
+        options: ["is going to begin", "will begin", "is beginning", "begins"],
+        correct: 3,
+        explanation: "Official institutional programmes follow a <strong>fixed schedule</strong> — this calls for the <strong>simple present</strong>. <em>Is going to begin</em> would imply visible evidence or personal intention; <em>will begin</em> would be a spontaneous prediction; <em>is beginning</em> would imply a personal arrangement."
+      },
+      {
+        sentence: "By the time the conference ends on Friday, the delegates _____ twelve different proposals.",
+        context: "The action will be completed before a specific future point.",
+        options: ["will be discussing", "will have discussed", "are going to discuss", "will discuss"],
+        correct: 1,
+        explanation: "<em>By the time</em> signals that the action will be <strong>completed before</strong> Friday — this requires the <strong>future perfect</strong> (<em>will have discussed</em>). <em>Will be discussing</em> would imply the action is still in progress at that point; <em>are going to discuss</em> is a prior intention; <em>will discuss</em> is a simple prediction without the completion aspect."
+      },
+      {
+        sentence: "Don't call her between 2 and 4 p.m. She _____ doctoral students all afternoon.",
+        context: "The action will be in progress throughout a specific future period.",
+        options: ["will have supervised", "is going to supervise", "will be supervising", "supervises"],
+        correct: 2,
+        explanation: "The action will be <strong>in progress throughout the afternoon</strong> — this is the <strong>future progressive</strong>. <em>Will have supervised</em> would mean the action is completed by that time; <em>is going to supervise</em> is a prior intention; <em>supervises</em> implies a fixed regular schedule."
+      },
+      {
+        sentence: "Really? I _____ one too — I already paid the registration fee.",
+        context: "The speaker made a decision before this conversation.",
+        options: ["will join", "am going to join", "am joining", "join"],
+        correct: 1,
+        explanation: "The speaker <strong>already paid</strong> — the decision was made before this moment. This is <strong>be going to</strong> for prior intention. <em>Will join</em> would be a spontaneous decision; <em>am joining</em> would suggest a confirmed arrangement with another person; <em>join</em> is the simple present."
+      },
+      {
+        sentence: "We _____ you the contract as soon as we _____ your documents.",
+        context: "A time clause with 'as soon as' — two future actions in sequence.",
+        options: [
+          "will send / will receive",
+          "are going to send / receive",
+          "will send / receive",
+          "send / will receive"
+        ],
+        correct: 2,
+        explanation: "After <em>as soon as</em> (a time conjunction), you <strong>never use will</strong> — use the simple present instead. The main clause takes <strong>will</strong>: <em>will send / receive</em>. Option A incorrectly uses <em>will receive</em> in the time clause; B uses <em>are going to send</em> (less natural for a formal promise); D incorrectly puts <em>will</em> in the time clause."
+      },
+      {
+        sentence: "By next April, she _____ at this university for twenty years.",
+        context: "Emphasising the duration of an ongoing action up to a future point.",
+        options: ["will have taught", "will be teaching", "will have been teaching", "is going to teach"],
+        correct: 2,
+        explanation: "The focus is on the <strong>duration</strong> (twenty years) up to a future point — this is the <strong>future perfect continuous</strong>. <em>Will have taught</em> (future perfect) focuses on completion, not duration; <em>will be teaching</em> implies she is in the middle of teaching at that moment; <em>is going to teach</em> is a prior intention."
+      },
+      {
+        sentence: "I'm not sure about the dinner plans yet. I _____ come, but I need to check my schedule first.",
+        context: "The speaker is uncertain — the outcome is possible but not decided.",
+        options: ["am going to come", "am coming", "might come", "will come"],
+        correct: 2,
+        explanation: "The speaker is <strong>uncertain</strong> and hasn't decided yet — this calls for <strong>might</strong>. <em>Am going to come</em> would imply a prior decision; <em>am coming</em> would mean a confirmed arrangement; <em>will come</em> would be a more definite prediction or promise."
+      }
+    ];
+
+    let answered       = new Array(QUESTIONS.length).fill(false);
+    let scores         = new Array(QUESTIONS.length).fill(null);
+    let shuffledOrders = [];
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function updateProgress() {
+      const done    = answered.filter(Boolean).length;
+      const correct = scores.filter(s => s === true).length;
+      document.getElementById('progressText').textContent = `${done} of ${QUESTIONS.length} answered`;
+      document.getElementById('scoreText').textContent    = `Score: ${correct}`;
+      document.getElementById('progressFill').style.width = `${(done / QUESTIONS.length) * 100}%`;
+      if (done === QUESTIONS.length) showFinalScore(correct);
+    }
+
+    function selectOption(qIndex, shuffledOptIndex) {
+      if (answered[qIndex]) return;
+      const q               = QUESTIONS[qIndex];
+      const order           = shuffledOrders[qIndex];
+      const originalIndex   = order[shuffledOptIndex];
+      const correct         = originalIndex === q.correct;
+      const correctShuffled = order.indexOf(q.correct);
+      const card            = document.getElementById(`q-${qIndex}`);
+      const buttons         = card.querySelectorAll('.option-btn');
+      const fb              = card.querySelector('.feedback-box');
+      const status          = card.querySelector('.q-status');
+
+      buttons.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === correctShuffled)                   btn.classList.add('correct');
+        else if (i === shuffledOptIndex && !correct) btn.classList.add('wrong');
+        else                                         btn.classList.add('dimmed');
+      });
+
+      if (correct) {
+        fb.className = 'feedback-box show correct-fb';
+        fb.innerHTML = `✓ <strong>Correct!</strong> ${q.explanation}`;
+        status.className   = 'q-status correct';
+        status.textContent = '✓ Correct';
+      } else {
+        fb.className = 'feedback-box show wrong-fb';
+        fb.innerHTML = `✗ <strong>Not quite.</strong> ${q.explanation}`;
+        status.className   = 'q-status wrong';
+        status.textContent = '✗ Incorrect';
+      }
+
+      answered[qIndex] = true;
+      scores[qIndex]   = correct;
+      updateProgress();
+    }
+
+    function showFinalScore(correct) {
+      const total = QUESTIONS.length;
+      const pct   = correct / total;
+      let emoji, title, desc;
+      if (pct === 1)      { emoji = '🏆'; title = 'Perfect score!';   desc = `You got all <strong>${total}</strong> questions right. Excellent command of future forms!`; }
+      else if (pct >= .8) { emoji = '🎉'; title = 'Great job!';       desc = `<strong>${correct} out of ${total}</strong> correct. Strong work — review the ones you missed.`; }
+      else if (pct >= .6) { emoji = '👍'; title = 'Good effort!';     desc = `<strong>${correct} out of ${total}</strong> correct. Pay attention to contextual clues and the will vs going to distinction.`; }
+      else                { emoji = '📖'; title = 'Keep practising!'; desc = `<strong>${correct} out of ${total}</strong> correct. Go back to the Explanation page and try again.`; }
+
+      document.getElementById('scoreEmoji').textContent = emoji;
+      document.getElementById('scoreTitle').textContent = title;
+      document.getElementById('scoreDesc').innerHTML    = desc;
+      document.getElementById('finalScore').classList.add('show');
+      document.getElementById('finalScore').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function restartAll() {
+      answered       = new Array(QUESTIONS.length).fill(false);
+      scores         = new Array(QUESTIONS.length).fill(null);
+      shuffledOrders = [];
+      document.getElementById('finalScore').classList.remove('show');
+      document.getElementById('questionsContainer').innerHTML = '';
+      buildQuestions();
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function buildQuestions() {
+      const container = document.getElementById('questionsContainer');
+      const letters   = ['A', 'B', 'C', 'D'];
+
+      QUESTIONS.forEach((q, qi) => {
+        const order = shuffle([0, 1, 2, 3]);
+        shuffledOrders[qi] = order;
+        const shuffledOpts = order.map(i => q.options[i]);
+
+        const card = document.createElement('div');
+        card.className = 'q-card';
+        card.id = `q-${qi}`;
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-number">Question ${qi + 1}</span>
+            <span class="q-status"></span>
+          </div>
+          <div class="q-body">
+            <div class="q-sentence">
+              ${q.sentence.replace('_____', '<span class="gap">_____</span>')}
+              <span class="q-context">${q.context}</span>
+            </div>
+            <div class="options">
+              ${shuffledOpts.map((opt, oi) => `
+                <button class="option-btn" onclick="selectOption(${qi}, ${oi})">
+                  <span class="opt-letter">${letters[oi]}</span>
+                  <span class="opt-text">${opt}</span>
+                </button>
+              `).join('')}
+            </div>
+            <div class="feedback-box"></div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    buildQuestions();
+    updateProgress();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Forms — Explanation · B2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+
+      --will-bg:    #eef3f8;
+      --will-color: #2c4a6e;
+      --going-bg:   #eef6f0;
+      --going-color:#2d7a3e;
+      --pp-bg:      #fdf6e8;
+      --pp-color:   #8a6800;
+      --sp-bg:      #f8eee8;
+      --sp-color:   #c0392b;
+      --adv-bg:     #f3eef8;
+      --adv-color:  #6a3a8a;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .page-header p {
+      margin-top: .6rem;
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .section-block-header {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-block-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-block-body {
+      padding: 1.3rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .prose {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* Form cards */
+    .form-card {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .form-card-header {
+      padding: .6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-tag {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: .2rem .6rem;
+      border-radius: 6px;
+    }
+    .form-card-body {
+      padding: .85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .form-use {
+      font-size: .88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .form-example {
+      font-size: .9rem;
+      font-style: italic;
+      line-height: 1.55;
+      border-left: 3px solid;
+      padding-left: .7rem;
+    }
+    .form-example span {
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Color variants */
+    .fc-will   { background: var(--will-bg); }
+    .fc-going  { background: var(--going-bg); }
+    .fc-pp     { background: var(--pp-bg); }
+    .fc-sp     { background: var(--sp-bg); }
+    .fc-adv    { background: var(--adv-bg); }
+
+    .tag-will  { background: var(--will-color);  color: #fff; }
+    .tag-going { background: var(--going-color); color: #fff; }
+    .tag-pp    { background: var(--pp-color);    color: #fff; }
+    .tag-sp    { background: var(--sp-color);    color: #fff; }
+    .tag-adv   { background: var(--adv-color);   color: #fff; }
+    .tag-might { background: #888; color: #fff; }
+    .tag-fpc   { background: #5a4a8a; color: #fff; }
+
+    .ex-will  { border-color: var(--will-color);  color: var(--will-color); }
+    .ex-going { border-color: var(--going-color); color: var(--going-color); }
+    .ex-pp    { border-color: var(--pp-color);    color: var(--pp-color); }
+    .ex-sp    { border-color: var(--sp-color);    color: var(--sp-color); }
+    .ex-adv   { border-color: var(--adv-color);   color: var(--adv-color); }
+    .ex-might { border-color: #888; color: #555; }
+    .ex-fpc   { border-color: #5a4a8a; color: #5a4a8a; }
+
+    /* Comparison table */
+    .comp-table {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: .87rem;
+    }
+    .comp-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+    }
+    .comp-row.head {
+      background: var(--bg);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .comp-row > span {
+      padding: .65rem .85rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .comp-row > span:not(:last-child) { border-right: 1px solid var(--border); }
+    .comp-row:last-child > span { border-bottom: none; }
+
+    /* Watch out */
+    .watchout {
+      background: #fdf6e8;
+      border: 1px solid #e8c87a;
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+    }
+    .watchout-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .watchout p  { font-size: .88rem; line-height: 1.65; }
+    .watchout ul { margin-top: .5rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .35rem; }
+    .watchout li { font-size: .88rem; line-height: 1.55; }
+
+    /* Error blocks */
+    .error-block {
+      padding-bottom: 1.1rem;
+      margin-bottom: 1.1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .error-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .error-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .5rem; }
+    .inline-ex   { font-size: .88rem; line-height: 1.8; }
+
+    /* Time clause box */
+    .time-clause-box {
+      background: var(--adv-bg);
+      border: 1px solid #c8b0e0;
+      border-left: 4px solid var(--adv-color);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+    }
+    .time-clause-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--adv-color);
+      margin-bottom: .5rem;
+    }
+    .time-clause-box p  { font-size: .88rem; line-height: 1.65; }
+    .time-clause-box ul { margin-top: .5rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .3rem; }
+    .time-clause-box li { font-size: .88rem; line-height: 1.55; }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      margin-top: .1rem;
+    }
+    .step-body { flex: 1; }
+    .step-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); margin-bottom: .3rem; }
+    .step-ex    { font-size: .92rem; line-height: 1.55; }
+
+    /* Nav */
+    .page-nav {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: .7rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-next:hover { opacity: .85; }
+    .btn-next.locked { opacity: .45; pointer-events: none; }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+
+    @media (max-width: 520px) {
+      .comp-row { grid-template-columns: 1fr; }
+      .comp-row > span:not(:last-child) { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a><span>›</span>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/b2.html">B2</a><span>›</span>
+    Grammar<span>›</span>
+    Future Forms<span>›</span>
+    <span>Explanation</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · B2</p>
+    <h1>Future Forms</h1>
+    <p>English has several ways to talk about the future — and the choice between them depends not on time, but on <strong>meaning</strong>: your certainty, your intention, the evidence available, and whether you planned ahead.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. WILL -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>will + infinitive</h2></div>
+      <div class="section-block-body">
+
+        <div class="form-card fc-will">
+          <div class="form-card-header">
+            <span class="form-tag tag-will">will</span>
+            <span style="font-size:.85rem; color:var(--will-color); font-weight:600;">Prediction (opinion) · Spontaneous decision · Offer · Promise</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use <strong>will</strong> when you make a prediction based on what you think or believe (not visible evidence), when you decide something at the moment of speaking, or when you make an offer or promise.</p>
+            <p class="form-example ex-will">I think it <span>'ll rain</span> later — the sky looks a bit grey. <em style="font-size:.8rem;">(prediction based on opinion)</em></p>
+            <p class="form-example ex-will">A: We've run out of coffee. B: I<span>'ll go and buy some.</span> <em style="font-size:.8rem;">(spontaneous offer)</em></p>
+            <p class="form-example ex-will">Don't worry — I <span>won't tell</span> anyone what you said. <em style="font-size:.8rem;">(promise)</em></p>
+          </div>
+        </div>
+
+        <div class="form-card" style="background:#f8f8f6; border-color:var(--border);">
+          <div class="form-card-header">
+            <span class="form-tag tag-might">might</span>
+            <span style="font-size:.85rem; color:#555; font-weight:600;">Possibility (weaker than will)</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use <strong>might</strong> when something is possible but uncertain. It signals less confidence than <em>will</em>.</p>
+            <p class="form-example ex-might">I <span>might go</span> to the conference — I haven't decided yet.</p>
+            <p class="form-example ex-might">She <span>might not be</span> in the office tomorrow.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. BE GOING TO -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>be going to</h2></div>
+      <div class="section-block-body">
+        <div class="form-card fc-going">
+          <div class="form-card-header">
+            <span class="form-tag tag-going">going to</span>
+            <span style="font-size:.85rem; color:var(--going-color); font-weight:600;">Prior intention · Prediction based on visible evidence</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use <strong>be going to</strong> when you have already decided to do something before the moment of speaking, or when you can see clear evidence that something is about to happen.</p>
+            <p class="form-example ex-going">I <span>am going to apply</span> for the job — I've already written my CV. <em style="font-size:.8rem;">(prior decision)</em></p>
+            <p class="form-example ex-going">Look at those clouds — it <span>is going to rain</span>. <em style="font-size:.8rem;">(evidence visible now)</em></p>
+          </div>
+        </div>
+
+        <div class="watchout">
+          <div class="watchout-title">⚠ will vs going to</div>
+          <p>This is the most common confusion. The key question is: <strong>when was the decision made?</strong></p>
+          <ul>
+            <li>Decision made <strong>right now</strong> → <em>will</em>: <em>"The phone's ringing." "I<strong>'ll</strong> get it."</em></li>
+            <li>Decision made <strong>before this moment</strong> → <em>going to</em>: <em>"I<strong>'m going to</strong> get a new phone — I decided last week."</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PRESENT PROGRESSIVE & SIMPLE PRESENT -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Present progressive & simple present for the future</h2></div>
+      <div class="section-block-body">
+
+        <div class="form-card fc-pp">
+          <div class="form-card-header">
+            <span class="form-tag tag-pp">Present progressive</span>
+            <span style="font-size:.85rem; color:var(--pp-color); font-weight:600;">Confirmed plans and arrangements</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use the <strong>present progressive</strong> for future plans that involve other people or external arrangements — something already set up and confirmed.</p>
+            <p class="form-example ex-pp">I <span>am meeting</span> Dr. López at two o'clock. <em style="font-size:.8rem;">(confirmed with her)</em></p>
+            <p class="form-example ex-pp">We <span>are flying</span> to Rome next Friday. <em style="font-size:.8rem;">(tickets booked)</em></p>
+          </div>
+        </div>
+
+        <div class="form-card fc-sp">
+          <div class="form-card-header">
+            <span class="form-tag tag-sp">Simple present</span>
+            <span style="font-size:.85rem; color:var(--sp-color); font-weight:600;">Fixed schedules and timetables</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use the <strong>simple present</strong> for events that follow a fixed schedule — timetables, programmes, institutional calendars. The event is predetermined and outside your control.</p>
+            <p class="form-example ex-sp">The conference <span>starts</span> at 9 a.m. on Monday. <em style="font-size:.8rem;">(official programme)</em></p>
+            <p class="form-example ex-sp">The last train <span>leaves</span> at 11:45. <em style="font-size:.8rem;">(timetable)</em></p>
+          </div>
+        </div>
+
+        <div class="watchout">
+          <div class="watchout-title">⚠ going to vs present progressive</div>
+          <p>Both refer to things decided before now — but the present progressive implies an external arrangement or another person is involved. <em>Going to</em> is more about personal intention.</p>
+          <ul>
+            <li><em>I<strong>'m going to</strong> study more this semester.</em> — personal intention, no external arrangement</li>
+            <li><em>I<strong>'m having</strong> lunch with my supervisor on Thursday.</em> — confirmed with another person</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 4. FUTURE PROGRESSIVE, PERFECT, PERFECT CONTINUOUS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Future progressive, perfect, and perfect continuous</h2></div>
+      <div class="section-block-body">
+
+        <div class="form-card fc-will">
+          <div class="form-card-header">
+            <span class="form-tag tag-will">will be + -ing</span>
+            <span style="font-size:.85rem; color:var(--will-color); font-weight:600;">Future progressive — action in progress at a future moment</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use the <strong>future progressive</strong> for an action that will be in progress at a specific point in the future.</p>
+            <p class="form-example ex-will">At this time tomorrow, I <span>will be sitting</span> on a plane to Tokyo.</p>
+            <p class="form-example ex-will">Don't call at noon — she <span>will be presenting</span> her thesis.</p>
+          </div>
+        </div>
+
+        <div class="form-card fc-going">
+          <div class="form-card-header">
+            <span class="form-tag tag-going">will have + past participle</span>
+            <span style="font-size:.85rem; color:var(--going-color); font-weight:600;">Future perfect — action completed before a future point</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use the <strong>future perfect</strong> for an action that will be finished before a specific point in the future. Common with <em>by</em>, <em>by the time</em>, <em>before</em>.</p>
+            <p class="form-example ex-going">By Friday, she <span>will have submitted</span> all her coursework.</p>
+            <p class="form-example ex-going">By the time you arrive, we <span>will have already eaten</span>.</p>
+          </div>
+        </div>
+
+        <div class="form-card" style="background:var(--adv-bg); border-color:#c8b0e0;">
+          <div class="form-card-header">
+            <span class="form-tag tag-fpc">will have been + -ing</span>
+            <span style="font-size:.85rem; color:#5a4a8a; font-weight:600;">Future perfect continuous — duration up to a future point</span>
+          </div>
+          <div class="form-card-body">
+            <p class="form-use">Use the <strong>future perfect continuous</strong> to emphasise how long an action will have been going on by a future point. Common with <em>for</em> + duration.</p>
+            <p class="form-example ex-fpc">By next month, I <span>will have been working</span> here for ten years.</p>
+            <p class="form-example ex-fpc">By the time the project ends, the team <span>will have been developing</span> the app for two years.</p>
+          </div>
+        </div>
+
+        <div class="comp-table">
+          <div class="comp-row head">
+            <span>Form</span>
+            <span>Focus</span>
+            <span>Key signal</span>
+          </div>
+          <div class="comp-row">
+            <span><strong>will be + -ing</strong></span>
+            <span>In progress at a future moment</span>
+            <span><em>at this time tomorrow, at 3 p.m.</em></span>
+          </div>
+          <div class="comp-row">
+            <span><strong>will have + pp</strong></span>
+            <span>Completed before a future point</span>
+            <span><em>by Friday, by the time, before</em></span>
+          </div>
+          <div class="comp-row">
+            <span><strong>will have been + -ing</strong></span>
+            <span>Duration up to a future point</span>
+            <span><em>for + period, by next year</em></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 5. TIME CLAUSES -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>⚠ Future forms in time clauses</h2></div>
+      <div class="section-block-body">
+        <div class="time-clause-box">
+          <div class="time-clause-title">Critical rule — never use will in a time clause</div>
+          <p>After time conjunctions — <strong>when, as soon as, once, until, by the time, after, before</strong> — use a <strong>present</strong> or <strong>perfect</strong> tense, never <em>will</em>.</p>
+          <ul>
+            <li>❌ <em>I'll call you when I <strong>will arrive</strong>.</em></li>
+            <li>✅ <em>I'll call you when I <strong>arrive</strong>.</em></li>
+            <li>❌ <em>As soon as she <strong>will finish</strong>, we can leave.</em></li>
+            <li>✅ <em>As soon as she <strong>finishes</strong>, we can leave.</em></li>
+            <li>✅ <em>By the time you <strong>get</strong> here, I'll have already left.</em></li>
+            <li>✅ <em>Once he <strong>has signed</strong> the contract, we can proceed.</em> <em style="font-size:.8rem;">(present perfect for completed prior action)</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. COMMON ERRORS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>❌ Common errors</h2></div>
+      <div class="section-block-body">
+
+        <div class="error-block">
+          <div class="error-title">1. Using will instead of going to for prior decisions</div>
+          <div class="inline-ex">
+            ❌ <em>I <strong>will apply</strong> for the scholarship — I've already started my statement.</em><br>
+            ✅ <em>I <strong>am going to apply</strong> for the scholarship — I've already started my statement.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">2. Using going to instead of present progressive for arrangements</div>
+          <div class="inline-ex">
+            ❌ <em>I <strong>am going to meet</strong> the director at 3 p.m. — she confirmed yesterday.</em><br>
+            ✅ <em>I <strong>am meeting</strong> the director at 3 p.m. — she confirmed yesterday.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">3. Confusing future progressive with future perfect</div>
+          <div class="inline-ex">
+            ❌ <em>By 10 p.m., he <strong>will be finishing</strong> the report.</em> <em style="font-size:.82rem; color:var(--text-muted);">(implies in progress at that point)</em><br>
+            ✅ <em>By 10 p.m., he <strong>will have finished</strong> the report.</em> <em style="font-size:.82rem; color:var(--text-muted);">(completed before that point)</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">4. Using will in a subordinate time clause</div>
+          <div class="inline-ex">
+            ❌ <em>I'll send you the file as soon as I <strong>will find</strong> it.</em><br>
+            ✅ <em>I'll send you the file as soon as I <strong>find</strong> it.</em>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 7. QUICK GUIDE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>💡 Quick decision guide</h2></div>
+      <div class="section-block-body">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <div class="step-label">Is it a fixed timetable or schedule?</div>
+              <div class="step-ex">Yes → <strong>simple present</strong>: <em>The train leaves at 8.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <div class="step-label">Is it a confirmed arrangement with another person?</div>
+              <div class="step-ex">Yes → <strong>present progressive</strong>: <em>I'm seeing the doctor at noon.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <div class="step-label">Is there a prior intention or visible evidence?</div>
+              <div class="step-ex">Yes → <strong>be going to</strong>: <em>I'm going to quit. / It's going to snow.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <div class="step-label">Is it a spontaneous decision, offer, or opinion-based prediction?</div>
+              <div class="step-ex">Yes → <strong>will</strong>: <em>I'll help you with that. / I think she'll pass.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <div class="step-label">Will the action be in progress at a specific future moment?</div>
+              <div class="step-ex">Yes → <strong>future progressive</strong>: <em>I'll be travelling this time next week.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">6</span>
+            <div class="step-body">
+              <div class="step-label">Will the action be completed before a future point?</div>
+              <div class="step-ex">Yes → <strong>future perfect</strong>: <em>By then, I'll have finished the project.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">7</span>
+            <div class="step-body">
+              <div class="step-label">Are you emphasising duration up to a future point?</div>
+              <div class="step-ex">Yes → <strong>future perfect continuous</strong>: <em>By then, I'll have been studying here for three years.</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-nav">
+    <a href="future_forms_recognition.html" class="btn-next">Next: Recognition →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+</body>
+</html>

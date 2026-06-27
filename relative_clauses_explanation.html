@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relative Clauses — Explanation · B2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+
+      --def-bg:     #eef3f8;
+      --def-border: #b0c8e0;
+      --def-accent: #2c4a6e;
+      --non-bg:     #eef6f0;
+      --non-border: #a8d4b4;
+      --non-accent: #2d7a3e;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .page-header p {
+      margin-top: .6rem;
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .section-block-header {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .section-block-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-block-body {
+      padding: 1.3rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .prose {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .prose strong { font-weight: 600; }
+    .prose em { font-style: italic; color: var(--text-muted); }
+
+    .intro-note {
+      background: var(--def-bg);
+      border-left: 3px solid var(--def-accent);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    /* Defining / Non-defining cards */
+    .type-card {
+      border-radius: 10px;
+      border: 1px solid;
+      overflow: hidden;
+    }
+    .type-card.def { background: var(--def-bg); border-color: var(--def-border); }
+    .type-card.non { background: var(--non-bg); border-color: var(--non-border); }
+
+    .type-card-header {
+      padding: .65rem 1rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid;
+    }
+    .type-card.def .type-card-header { color: var(--def-accent); border-color: var(--def-border); }
+    .type-card.non .type-card-header { color: var(--non-accent); border-color: var(--non-border); }
+
+    .type-card-body { padding: .9rem 1rem; }
+    .type-desc {
+      font-size: .88rem;
+      color: var(--text-muted);
+      margin-bottom: .8rem;
+      line-height: 1.55;
+    }
+
+    /* Sentence comparison */
+    .comparison { display: flex; flex-direction: column; gap: .5rem; }
+    .sentence-row { display: flex; align-items: flex-start; gap: .6rem; }
+    .sentence-label {
+      flex-shrink: 0;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      margin-top: .18rem;
+      min-width: 52px;
+      text-align: center;
+    }
+    .label-a, .label-b { background: #e8e4dc; color: #6a5f55; }
+    .label-result { color: #fff; }
+    .def .label-result { background: var(--def-accent); }
+    .non .label-result { background: var(--non-accent); }
+
+    .sentence-text { font-size: .92rem; line-height: 1.55; color: var(--text); }
+    .sentence-text .highlight {
+      font-weight: 600;
+      border-bottom: 2px solid;
+      padding-bottom: 1px;
+    }
+    .def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+
+    .arrow-row {
+      display: flex; align-items: center; gap: .6rem; padding-left: 58px;
+    }
+    .arrow-line { flex: 1; height: 1px; border-top: 1.5px dashed #ccc; }
+    .arrow-label { font-size: .7rem; color: var(--text-muted); font-style: italic; white-space: nowrap; }
+
+    /* Pronoun table */
+    .pronoun-table {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: .88rem;
+    }
+    .pronoun-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .pronoun-row.head {
+      background: var(--bg);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pronoun-row > span {
+      padding: .65rem .9rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .pronoun-row > span:not(:last-child) { border-right: 1px solid var(--border); }
+    .pronoun-row:last-child > span { border-bottom: none; }
+    .tag-yes { color: var(--green); font-weight: 700; }
+    .tag-no  { color: var(--red);   font-weight: 700; }
+
+    /* Omission section */
+    .omit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) { .omit-grid { grid-template-columns: 1fr; } }
+
+    .omit-card {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .omit-card-header {
+      padding: .6rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .omit-card.can    .omit-card-header { background: #eaf5ec; color: var(--green); }
+    .omit-card.cannot .omit-card-header { background: #fdf0ee; color: var(--red); }
+    .omit-card-body {
+      padding: .85rem 1rem;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .omit-desc { font-size: .83rem; color: var(--text-muted); line-height: 1.55; }
+    .omit-example {
+      font-size: .9rem;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 3px solid;
+      padding-left: .7rem;
+    }
+    .omit-card.can    .omit-example { border-color: var(--green); }
+    .omit-card.cannot .omit-example { border-color: var(--red); }
+
+    /* Watch out */
+    .watchout {
+      background: #fdf6e8;
+      border: 1px solid #e8c87a;
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+    }
+    .watchout-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .watchout p { font-size: .88rem; line-height: 1.65; color: var(--text); }
+    .watchout ul {
+      margin-top: .5rem;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .watchout li { font-size: .88rem; line-height: 1.55; }
+
+    /* Error blocks */
+    .error-block {
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .error-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .error-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; }
+
+    .inline-ex { font-size: .88rem; line-height: 1.8; }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      margin-top: .1rem;
+    }
+    .step-body { flex: 1; }
+    .step-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); margin-bottom: .3rem; }
+    .step-ex { font-size: .92rem; line-height: 1.55; color: var(--text); }
+
+    /* Position examples */
+    .position-grid { display: flex; flex-direction: column; gap: .8rem; }
+    .position-example {
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .position-example .pos-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: .35rem;
+    }
+    .pos-clause { font-weight: 600; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 1px; }
+    .pos-clause.non { color: var(--green); border-color: var(--green); }
+    .pos-comma { color: var(--red); font-weight: 700; }
+
+    /* Nav */
+    .page-nav {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: .7rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-next:hover { opacity: .85; }
+    .btn-next.locked { opacity: .45; pointer-events: none; }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a><span>›</span>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/b2.html">B2</a><span>›</span>
+    Grammar<span>›</span>
+    Relative Clauses<span>›</span>
+    <span>Explanation</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · B2</p>
+    <h1>Relative Clauses</h1>
+    <p>A relative clause gives more information about a noun. Whether that information is essential or extra determines everything — the pronoun you use, and whether you need commas.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. WHAT IS A RELATIVE CLAUSE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>What is a relative clause?</h2></div>
+      <div class="section-block-body">
+        <div class="intro-note">
+          A <strong>relative clause</strong> is a dependent clause that modifies a noun — it tells us more about a person, thing, or idea. It is introduced by a <strong>relative pronoun</strong> (<em>who, which, that, whose</em>) and comes immediately after the noun it describes.
+        </div>
+        <p class="prose">At B2 level, the key distinction is between <strong>defining</strong> and <strong>non-defining</strong> relative clauses — they look similar but work very differently.</p>
+      </div>
+    </div>
+
+    <!-- 2. DEFINING vs NON-DEFINING -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Defining vs non-defining</h2></div>
+      <div class="section-block-body">
+
+        <div class="type-card def">
+          <div class="type-card-header">Defining — essential information</div>
+          <div class="type-card-body">
+            <p class="type-desc">The clause tells us <strong>which one</strong>. Without it, the sentence is incomplete or ambiguous. <strong>No commas.</strong> You can use <em>that</em> or <em>which</em> for things, <em>who</em> for people.</p>
+            <div class="comparison def">
+              <div class="sentence-row">
+                <span class="sentence-label label-a">A</span>
+                <span class="sentence-text">The book became a bestseller.</span>
+              </div>
+              <div class="sentence-row">
+                <span class="sentence-label label-b">B</span>
+                <span class="sentence-text">The book was recommended by my professor.</span>
+              </div>
+              <div class="arrow-row">
+                <div class="arrow-line"></div>
+                <span class="arrow-label">combine → B identifies which book</span>
+                <div class="arrow-line"></div>
+              </div>
+              <div class="sentence-row">
+                <span class="sentence-label label-result">Result</span>
+                <span class="sentence-text">The book <span class="highlight">that / which was recommended by my professor</span> became a bestseller.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-card non">
+          <div class="type-card-header">Non-defining — extra information</div>
+          <div class="type-card-body">
+            <p class="type-desc">The clause adds <strong>extra detail</strong> about something already identified. Remove it and the sentence still makes sense. <strong>Commas required.</strong> Only <em>which</em> for things, <em>who</em> for people — never <em>that</em>.</p>
+            <div class="comparison non">
+              <div class="sentence-row">
+                <span class="sentence-label label-a">A</span>
+                <span class="sentence-text">His first novel won the Booker Prize.</span>
+              </div>
+              <div class="sentence-row">
+                <span class="sentence-label label-b">B</span>
+                <span class="sentence-text">His first novel was written in under a year.</span>
+              </div>
+              <div class="arrow-row">
+                <div class="arrow-line"></div>
+                <span class="arrow-label">combine → B adds extra detail</span>
+                <div class="arrow-line"></div>
+              </div>
+              <div class="sentence-row">
+                <span class="sentence-label label-result">Result</span>
+                <span class="sentence-text">His first novel<span class="highlight">, which was written in under a year,</span> won the Booker Prize.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3. WHICH / THAT / WHO -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Which, that, who — when to use each</h2></div>
+      <div class="section-block-body">
+        <div class="pronoun-table">
+          <div class="pronoun-row head">
+            <span>Pronoun</span>
+            <span>Defining</span>
+            <span>Non-defining</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>that</strong></span>
+            <span><span class="tag-yes">✓</span> things &amp; people</span>
+            <span><span class="tag-no">✗</span> never</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>which</strong></span>
+            <span><span class="tag-yes">✓</span> things only</span>
+            <span><span class="tag-yes">✓</span> things only</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>who</strong></span>
+            <span><span class="tag-yes">✓</span> people only</span>
+            <span><span class="tag-yes">✓</span> people only</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>whose</strong></span>
+            <span><span class="tag-yes">✓</span> possession</span>
+            <span><span class="tag-yes">✓</span> possession</span>
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ Key rule</div>
+          <p><strong>That</strong> is only used in defining clauses. In non-defining clauses, always use <strong>which</strong> (for things) or <strong>who</strong> (for people) — never <em>that</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. OMITTING THE PRONOUN -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>When can you omit the pronoun?</h2></div>
+      <div class="section-block-body">
+        <p class="prose">In <strong>defining clauses only</strong>, you can sometimes leave out the relative pronoun — but only when it is the <strong>object</strong> of the clause, not the subject.</p>
+        <div class="omit-grid">
+          <div class="omit-card can">
+            <div class="omit-card-header">✓ Can omit — object</div>
+            <div class="omit-card-body">
+              <p class="omit-desc">The pronoun is the object of the relative clause. Something else is the subject.</p>
+              <p class="omit-example">The film <strong>(that/which)</strong> we watched last night was brilliant.<br><span style="font-size:.78rem;color:var(--text-muted);">→ <em>we</em> is the subject; the film is the object</span></p>
+            </div>
+          </div>
+          <div class="omit-card cannot">
+            <div class="omit-card-header">✗ Cannot omit — subject</div>
+            <div class="omit-card-body">
+              <p class="omit-desc">The pronoun is the subject of the relative clause. It cannot be removed.</p>
+              <p class="omit-example">The film <strong>that/which</strong> won the award was brilliant.<br><span style="font-size:.78rem;color:var(--text-muted);">→ <em>that/which</em> is the subject — cannot omit</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ Never omit in non-defining</div>
+          <p>In non-defining clauses, the pronoun can <strong>never</strong> be omitted, even when it is the object.</p>
+          <ul>
+            <li>❌ <em>His first novel, written in under a year, won the Booker Prize.</em> — this is a participle clause, not a relative clause</li>
+            <li>✅ <em>His first novel, <strong>which</strong> was written in under a year, won the Booker Prize.</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. COMMAS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Commas — the clearest signal</h2></div>
+      <div class="section-block-body">
+        <p class="prose">Commas are not optional punctuation — they change the <strong>meaning</strong> of the sentence.</p>
+        <div class="position-grid">
+          <div class="position-example">
+            <span class="pos-label">No commas → defining → identifies which one</span>
+            The students <span class="pos-clause">who passed the exam</span> will move to the next level.
+            <span style="display:block; font-size:.78rem; color:var(--text-muted); margin-top:.35rem;">Only the students who passed — not all students.</span>
+          </div>
+          <div class="position-example">
+            <span class="pos-label">Commas → non-defining → adds extra detail</span>
+            The students<span class="pos-comma">,</span> <span class="pos-clause non">who passed the exam</span><span class="pos-comma">,</span> will move to the next level.
+            <span style="display:block; font-size:.78rem; color:var(--text-muted); margin-top:.35rem;">All students passed — the clause just adds information.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. COMMON ERRORS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>❌ Common errors</h2></div>
+      <div class="section-block-body">
+
+        <div class="error-block">
+          <div class="error-title">1. Using <em>that</em> in a non-defining clause</div>
+          <div class="inline-ex">
+            ❌ <em>My laptop, <strong>that</strong> I bought last year, has already broken down.</em><br>
+            ✅ <em>My laptop, <strong>which</strong> I bought last year, has already broken down.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">2. Missing commas in a non-defining clause</div>
+          <div class="inline-ex">
+            ❌ <em>Professor García <strong>who has published over 30 papers</strong> will give the keynote.</em><br>
+            ✅ <em>Professor García<strong>, who has published over 30 papers,</strong> will give the keynote.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">3. Adding commas to a defining clause</div>
+          <div class="inline-ex">
+            ❌ <em>The report<strong>,</strong> that was submitted late<strong>,</strong> was not accepted.</em><br>
+            ✅ <em>The report <strong>that was submitted late</strong> was not accepted.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">4. Omitting the pronoun in a non-defining clause</div>
+          <div class="inline-ex">
+            ❌ <em>The conference, <strong>Ø</strong> I attended last month, was very inspiring.</em><br>
+            ✅ <em>The conference, <strong>which</strong> I attended last month, was very inspiring.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">5. Using <em>, which</em> when the information is essential</div>
+          <div class="inline-ex">
+            ❌ <em>The drug<strong>, which</strong> was tested on patients, showed promising results.</em> <span style="color:var(--text-muted); font-size:.85rem;">(implies only one drug was tested)</span><br>
+            ✅ <em>The drug <strong>that / which</strong> was tested on patients showed promising results.</em> <span style="color:var(--text-muted); font-size:.85rem;">(identifies which drug)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 7. STEP-BY-STEP -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>💡 Step-by-step: defining or non-defining?</h2></div>
+      <div class="section-block-body">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <div class="step-label">Find the noun being described.</div>
+              <div class="step-ex"><em>The scientist gave a moving speech.</em> → noun: <strong>the scientist</strong></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <div class="step-label">Ask: is the noun already fully identified?</div>
+              <div class="step-ex">Is it a proper noun, a unique reference, or already established in context? → <strong>non-defining</strong><br>Is it one of many, and we need to specify which one? → <strong>defining</strong></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <div class="step-label">Choose your pronoun.</div>
+              <div class="step-ex">Defining: <em>that</em> or <em>which</em> (things), <em>who</em> (people)<br>Non-defining: <em>which</em> (things), <em>who</em> (people) — never <em>that</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <div class="step-label">Add or remove commas accordingly.</div>
+              <div class="step-ex">Defining → no commas &nbsp;|&nbsp; Non-defining → commas before and after the clause</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <div class="step-label">Check: can you remove the clause and still make sense?</div>
+              <div class="step-ex">Yes → non-defining ✅ &nbsp;|&nbsp; No → defining ✅</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-nav">
+    <a href="relative_clauses_recognition.html" class="btn-next locked">Next: Recognition →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+</body>
+</html>
