@@ -474,7 +474,7 @@
 
   <div class="instructions">
     <div class="instructions-box">
-      <strong>Instructions:</strong> Rewrite each sentence to add emphasis. Keep the same meaning. Type the rest of the sentence in the box and press <strong>Check</strong>.<br><br>
+      <strong>Instructions:</strong> Rewrite each sentence to add emphasis. Keep the same meaning. In the box, write the <strong>complete sentence</strong> — from the first word to the last, including any words that are given — and press <strong>Check</strong>.<br><br>
       The exercise comes in <strong>sets of three</strong>. The three sentences in a set work the same way, but you get less help each time: first the beginning of the answer, then only the first word, then nothing.<br><br>
       ⚠ <strong>Remember:</strong> invert only after a negative or limiting expression at the start of the clause. After <em>but</em>, use normal word order.
     </div>
@@ -820,7 +820,7 @@
           q.prefix ? `<span class="rw-prefix">${q.prefix}</span>` : '',
           q.given  ? `<span class="rw-given">${q.given}</span>` : ''
         ].filter(Boolean).join(' ');
-        const placeholder = q.given ? 'Continue the sentence…' : (q.prefix ? 'Continue after “but”…' : 'Write the whole sentence…');
+        const placeholder = 'Write the complete sentence…';
 
         const card = document.createElement('div');
         card.className = 'q-card';
