@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C1 — English Practice con Ferdi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:        #f5f0eb;
+      --card-bg:   #ffffff;
+      --border:    #e0d9d0;
+      --text:      #2a2420;
+      --text-muted:#7a6f65;
+      --accent:    #2c4a6e;
+      --red:       #c0392b;
+      --green:     #2d7a3e;
+      --yellow:    #8a6800;
+      --radius:    12px;
+      --shadow:    0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Nib home button ── */
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    /* ── MINI HERO ── */
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 35vh;
+      min-height: 220px;
+      max-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .sky {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        #2b2445 0%,
+        #4e3a62 30%,
+        #8a5272 55%,
+        #c97a6e 78%,
+        #eab27f 100%
+      );
+    }
+
+    .scene-svg {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, 130vw);
+      pointer-events: none;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      animation: fadeUp .7s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .level-badge {
+      font-family: 'Lora', serif;
+      font-size: clamp(4rem, 14vw, 8rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: .04em;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.45);
+    }
+    .level-badge em {
+      font-style: italic;
+      color: #f5d97a;
+    }
+
+    .level-sub {
+      font-size: clamp(.8rem, 2vw, 1rem);
+      color: rgba(255,255,255,.75);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: .3rem;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 900px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .columns-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .column-header {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .column-header .col-icon { font-size: 1rem; }
+
+    /* ── Exercise link cards ── */
+    .ex-card {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: box-shadow .16s, transform .16s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ex-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    .ex-card.grammar::before  { background: var(--accent); }
+    .ex-card.vocab::before    { background: var(--green); }
+    .ex-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+    }
+
+    .ex-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .ex-info { flex: 1; }
+    .ex-title {
+      font-size: .95rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .ex-desc {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-top: .18rem;
+      line-height: 1.4;
+    }
+    .ex-arrow {
+      font-size: .85rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform .15s;
+    }
+    .ex-card:hover .ex-arrow { transform: translateX(3px); }
+
+    /* locked exercise */
+    .ex-card.locked {
+      background: transparent;
+      border: 1.5px dashed var(--border);
+      box-shadow: none;
+      pointer-events: none;
+    }
+    .ex-card.locked::before { display: none; }
+    .ex-card.locked .ex-icon,
+    .ex-card.locked .ex-title,
+    .ex-card.locked .ex-desc { opacity: .35; }
+    .ex-card.locked .ex-arrow { opacity: .2; }
+
+    .coming-tag {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: .5;
+    }
+
+    /* stack columns on mobile */
+    @media (max-width: 600px) {
+      .columns-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    /* ── ACCORDION ── */
+    .accordion { margin-bottom: 0; }
+
+    .acc-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .95rem 1.1rem;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: left;
+      box-shadow: var(--shadow);
+      transition: box-shadow .16s;
+      position: relative;
+      overflow: hidden;
+    }
+    .acc-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+    }
+    .acc-btn:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+
+    .acc-icon  { font-size: 1.1rem; }
+    .acc-label { flex: 1; }
+    .acc-arrow {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: transform .25s;
+      display: inline-block;
+    }
+    .accordion.open .acc-arrow { transform: rotate(90deg); }
+
+    .acc-body {
+      display: none;
+      flex-direction: column;
+      gap: .4rem;
+      padding: .5rem 0 0 .5rem;
+    }
+    .accordion.open .acc-body { display: flex; }
+
+    .acc-link {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .65rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      transition: background .14s, box-shadow .14s;
+    }
+    .acc-link:hover { background: #eef3f8; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+
+    .acc-link.locked {
+      color: var(--text-muted);
+      background: transparent;
+      border-style: dashed;
+      pointer-events: none;
+      opacity: .45;
+    }
+    .acc-soon {
+      margin-left: auto;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 2rem;
+      letter-spacing: .04em;
+    }
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      text-align: right;
+      padding: 0;
+      position: fixed;
+      bottom: 12px;
+      right: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Home button -->
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Water -->
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <!-- Road deck -->
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <!-- Left tower -->
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <!-- Left tower top battlements -->
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <!-- Left tower walkway arch -->
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <!-- Right tower -->
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <!-- Right tower top battlements -->
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <!-- Right tower walkway arch -->
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <!-- High walkway between towers -->
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <!-- Suspension cables left -->
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <!-- Suspension cables right -->
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <!-- HOME label -->
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <!-- ── MINI HERO ── -->
+  <section class="scene">
+    <div class="sky"></div>
+
+    <!-- Edinburgh Castle at dusk — plum/amber palette -->
+    <svg class="scene-svg" viewBox="0 0 1100 280" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Early stars -->
+      <circle cx="90"  cy="18" r="1.1" fill="#fff" opacity=".55"/>
+      <circle cx="210" cy="9"  r="1"   fill="#fff" opacity=".45"/>
+      <circle cx="330" cy="26" r="1.2" fill="#fff" opacity=".5"/>
+      <circle cx="610" cy="12" r="1"   fill="#fff" opacity=".4"/>
+      <circle cx="820" cy="20" r="1.2" fill="#fff" opacity=".5"/>
+      <circle cx="1010" cy="10" r="1"  fill="#fff" opacity=".45"/>
+
+      <!-- Setting sun -->
+      <circle cx="880" cy="210" r="46" fill="#f7d08a" opacity=".55"/>
+      <circle cx="880" cy="210" r="30" fill="#fbe2a8" opacity=".75"/>
+
+      <!-- Distant hills (Arthur's Seat silhouette, right) -->
+      <path d="M700,230 Q760,200 820,205 Q870,178 920,172 Q960,168 990,190 Q1040,205 1100,210 L1100,280 L700,280 Z" fill="#7a4a63" opacity=".55"/>
+
+      <g transform="translate(-200,0)">
+      <!-- ── CASTLE ROCK ── -->
+      <path d="M180,280 L205,230 Q230,200 260,188 L300,170 Q340,150 380,146 L560,142 Q600,146 625,162 Q650,180 668,206 L690,250 L705,280 Z" fill="#3a2a42"/>
+      <!-- Rock texture -->
+      <path d="M262,200 L290,186 M320,175 L350,166 M600,160 L630,178 M640,196 L660,218" stroke="#4e3a56" stroke-width="2" opacity=".7"/>
+      <path d="M230,240 L250,214 M640,240 L655,222" stroke="#4e3a56" stroke-width="2" opacity=".6"/>
+
+      <!-- ── CASTLE ── -->
+      <!-- Curtain wall -->
+      <rect x="300" y="130" width="290" height="20" fill="#2e2238"/>
+      <!-- Crenellations on wall -->
+      <rect x="302" y="125" width="8" height="6" fill="#2e2238"/>
+      <rect x="318" y="125" width="8" height="6" fill="#2e2238"/>
+      <rect x="334" y="125" width="8" height="6" fill="#2e2238"/>
+      <rect x="350" y="125" width="8" height="6" fill="#2e2238"/>
+
+      <!-- Half Moon Battery (curved, right) -->
+      <path d="M540,150 L540,112 Q575,108 600,120 L612,150 Z" fill="#2a1f34"/>
+      <rect x="542" y="106" width="7" height="7" fill="#2a1f34"/>
+      <rect x="556" y="104" width="7" height="7" fill="#2a1f34"/>
+      <rect x="570" y="106" width="7" height="7" fill="#2a1f34"/>
+      <rect x="584" y="110" width="7" height="7" fill="#2a1f34"/>
+
+      <!-- Palace block -->
+      <rect x="470" y="88" width="72" height="44" fill="#30243c"/>
+      <polygon points="470,88 506,70 542,88" fill="#261c30"/>
+      <!-- Palace tower with cap -->
+      <rect x="488" y="58" width="18" height="32" fill="#2a1f34"/>
+      <polygon points="486,58 497,42 508,58" fill="#221a2c"/>
+      <!-- Flagpole + saltire flag -->
+      <line x1="497" y1="42" x2="497" y2="20" stroke="#c9a84c" stroke-width="1.4"/>
+      <rect x="497" y="20" width="18" height="11" fill="#2c4a8e"/>
+      <line x1="497" y1="20" x2="515" y2="31" stroke="#fff" stroke-width="1.6"/>
+      <line x1="515" y1="20" x2="497" y2="31" stroke="#fff" stroke-width="1.6"/>
+
+      <!-- Great Hall (long roof) -->
+      <rect x="380" y="96" width="92" height="36" fill="#33263f"/>
+      <polygon points="378,96 426,78 474,96" fill="#281e32"/>
+
+      <!-- Barracks / western block -->
+      <rect x="318" y="108" width="64" height="24" fill="#2e2238"/>
+      <polygon points="316,108 350,96 384,108" fill="#261c30"/>
+
+      <!-- Gatehouse towers (front) -->
+      <rect x="400" y="128" width="16" height="24" fill="#2a1f34"/>
+      <rect x="440" y="128" width="16" height="24" fill="#2a1f34"/>
+      <rect x="398" y="122" width="5" height="6" fill="#2a1f34"/>
+      <rect x="408" y="122" width="5" height="6" fill="#2a1f34"/>
+      <rect x="438" y="122" width="5" height="6" fill="#2a1f34"/>
+      <rect x="448" y="122" width="5" height="6" fill="#2a1f34"/>
+      <path d="M416,152 L416,140 Q428,130 440,140 L440,152 Z" fill="#1c1424"/>
+
+      <!-- Lit windows -->
+      <rect x="480" y="98"  width="7" height="10" rx="2" fill="#f5e090" opacity=".7"/>
+      <rect x="494" y="98"  width="7" height="10" rx="2" fill="#f5e090" opacity=".6"/>
+      <rect x="508" y="98"  width="7" height="10" rx="2" fill="#f5e090" opacity=".65"/>
+      <rect x="522" y="98"  width="7" height="10" rx="2" fill="#f5e090" opacity=".5"/>
+      <rect x="392" y="106" width="8" height="12" rx="3" fill="#f5e090" opacity=".55"/>
+      <rect x="410" y="106" width="8" height="12" rx="3" fill="#f5e090" opacity=".6"/>
+      <rect x="428" y="106" width="8" height="12" rx="3" fill="#f5e090" opacity=".5"/>
+      <rect x="446" y="106" width="8" height="12" rx="3" fill="#f5e090" opacity=".6"/>
+      <rect x="328" y="116" width="6" height="8" rx="1" fill="#f5e090" opacity=".45"/>
+      <rect x="342" y="116" width="6" height="8" rx="1" fill="#f5e090" opacity=".5"/>
+      <rect x="356" y="116" width="6" height="8" rx="1" fill="#f5e090" opacity=".4"/>
+      <!-- Gold trim along wall top -->
+      <rect x="300" y="130" width="290" height="1.5" fill="#c9a84c" opacity=".5"/>
+
+      </g>
+
+      <g transform="translate(600,0)">
+      <!-- ── OLD TOWN (shifted right of the rock) ── -->
+      <rect x="20"  y="214" width="44" height="66" fill="#3a2a46" opacity=".85"/>
+      <polygon points="20,214 42,198 64,214" fill="#33253f" opacity=".85"/>
+      <rect x="70"  y="222" width="36" height="58" fill="#42304e" opacity=".8"/>
+      <rect x="112" y="206" width="30" height="74" fill="#3a2a46" opacity=".85"/>
+      <!-- St Giles' crown spire -->
+      <rect x="150" y="196" width="22" height="84" fill="#33253f"/>
+      <path d="M150,196 Q161,174 172,196" fill="none" stroke="#33253f" stroke-width="3"/>
+      <line x1="161" y1="180" x2="161" y2="168" stroke="#33253f" stroke-width="2"/>
+      <rect x="26"  y="226" width="6" height="8" rx="1" fill="#f5e090" opacity=".45"/>
+      <rect x="40"  y="240" width="6" height="8" rx="1" fill="#f5e090" opacity=".4"/>
+      <rect x="80"  y="232" width="6" height="8" rx="1" fill="#f5e090" opacity=".5"/>
+      <rect x="120" y="218" width="6" height="8" rx="1" fill="#f5e090" opacity=".4"/>
+
+      </g>
+
+      <!-- ── NEW TOWN + SCOTT MONUMENT (right) ── -->
+      <rect x="760" y="236" width="60" height="44" fill="#3a2a46" opacity=".85"/>
+      <rect x="828" y="228" width="48" height="52" fill="#42304e" opacity=".8"/>
+      <rect x="958" y="232" width="56" height="48" fill="#3a2a46" opacity=".85"/>
+      <rect x="1020" y="224" width="70" height="56" fill="#42304e" opacity=".8"/>
+      <!-- Scott Monument gothic spire -->
+      <polygon points="896,280 896,214 904,214 912,160 920,214 928,214 928,280" fill="#2e2238"/>
+      <polygon points="906,190 912,140 918,190" fill="#2e2238"/>
+      <line x1="912" y1="140" x2="912" y2="126" stroke="#2e2238" stroke-width="2"/>
+      <rect x="770" y="246" width="6" height="8" rx="1" fill="#f5e090" opacity=".4"/>
+      <rect x="788" y="246" width="6" height="8" rx="1" fill="#f5e090" opacity=".5"/>
+      <rect x="840" y="240" width="6" height="8" rx="1" fill="#f5e090" opacity=".45"/>
+      <rect x="970" y="244" width="6" height="8" rx="1" fill="#f5e090" opacity=".4"/>
+      <rect x="1034" y="236" width="6" height="8" rx="1" fill="#f5e090" opacity=".5"/>
+      <rect x="1056" y="236" width="6" height="8" rx="1" fill="#f5e090" opacity=".4"/>
+
+      <!-- Princes Street Gardens (foreground) -->
+      <path d="M0,262 Q120,252 260,260 Q420,268 560,258 Q740,250 900,262 Q1000,268 1100,258 L1100,280 L0,280 Z" fill="#2a2036"/>
+      <ellipse cx="240" cy="262" rx="26" ry="12" fill="#2f2440"/>
+      <ellipse cx="700" cy="260" rx="30" ry="13" fill="#2f2440"/>
+
+      <!-- Warm glow at base of rock -->
+      <ellipse cx="440" cy="270" rx="220" ry="18" fill="#f7c98a" opacity=".08"/>
+
+    </svg>
+
+    <!-- Text overlay -->
+    <div class="header-content">
+      <div class="level-badge"><em>C1</em></div>
+      <div class="level-sub">Advanced</div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a>
+    <span>›</span>
+    <span>C1 — Advanced</span>
+  </nav>
+
+  <!-- ── TWO-COLUMN CONTENT ── -->
+  <div class="columns-wrap">
+
+    <!-- GRAMMAR -->
+    <div class="grammar-col">
+      <h2 class="column-header">
+        <span class="col-icon">📝</span> Grammar
+      </h2>
+
+      <!-- Adding Emphasis: Inversion & do/does/did accordion -->
+      <div class="accordion" id="acc-emphasis">
+        <button class="acc-btn" onclick="toggleAccordion('acc-emphasis')">
+          <span class="acc-icon">📎</span>
+          <span class="acc-label">Adding Emphasis: Inversion &amp; do/does/did</span>
+          <span class="acc-arrow">›</span>
+        </button>
+        <div class="acc-body">
+          <a href="#" class="acc-link locked">
+            <span>💡</span> Explanation <span class="acc-soon">Soon</span>
+          </a>
+          <a href="#" class="acc-link locked">
+            <span>🔍</span> Recognition <span class="acc-soon">Soon</span>
+          </a>
+          <a href="#" class="acc-link locked">
+            <span>✏️</span> Practice <span class="acc-soon">Soon</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Placeholder -->
+      <div class="ex-card locked" style="margin-top:.8rem;">
+        <span class="ex-icon">📎</span>
+        <div class="ex-info">
+          <div class="ex-title">More grammar topics</div>
+          <div class="ex-desc">Coming soon</div>
+        </div>
+        <span class="coming-tag">Soon</span>
+      </div>
+    </div>
+
+    <!-- VOCABULARY -->
+    <div class="vocab-col">
+      <h2 class="column-header">
+        <span class="col-icon">🃏</span> Vocabulary
+      </h2>
+
+      <div class="ex-card locked">
+        <span class="ex-icon">🃏</span>
+        <div class="ex-info">
+          <div class="ex-title">Flashcards</div>
+          <div class="ex-desc">Español ↔ English flip cards.</div>
+        </div>
+        <span class="coming-tag">Soon</span>
+      </div>
+
+      <!-- Placeholder for future vocab exercises -->
+      <div style="margin-top: .8rem;">
+        <div class="ex-card locked">
+          <span class="ex-icon">🃏</span>
+          <div class="ex-info">
+            <div class="ex-title">More exercises</div>
+            <div class="ex-desc">Coming soon</div>
+          </div>
+          <span class="coming-tag">Soon</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>made with ♥ for advanced learners</footer>
+  <div class="watermark">English Practice con Ferdi</div>
+
+  <script>
+    function toggleAccordion(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
