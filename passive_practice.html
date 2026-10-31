@@ -432,6 +432,21 @@
     }
     .rw-empty { color: var(--text-muted); }
     .sentence .s-label { min-width: 70px; text-align: center; }
+    /* ── match meter & element checklist ── */
+    .match-line { display: flex; align-items: center; gap: .7rem; margin-bottom: .6rem; flex-wrap: wrap; }
+    .match-bar { flex: 1; min-width: 120px; height: 8px; background: rgba(0,0,0,.08); border-radius: 99px; overflow: hidden; }
+    .match-bar span { display: block; height: 100%; border-radius: 99px; }
+    .match-bar.high span { background: var(--green); }
+    .match-bar.mid  span { background: #c87820; }
+    .match-bar.low  span { background: var(--red); }
+    .need-title { font-weight: 600; margin: .2rem 0 .35rem; }
+    .need-list { list-style: none; display: flex; flex-direction: column; gap: .3rem; padding: 0; margin: 0; }
+    .need-list li { display: flex; gap: .5rem; align-items: flex-start; line-height: 1.45; }
+    .need-list .mark { flex-shrink: 0; width: 1.1rem; font-weight: 700; text-align: center; }
+    .need-list li.ok   { color: var(--green); }
+    .need-list li.miss { color: var(--text); }
+    .need-list li.miss .mark { color: var(--red); }
+    .need-note, .need-tip { margin-top: .55rem; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -624,6 +639,142 @@
         hint: "Start with <em>Do you mind</em>. Is it followed by <em>being</em> or <em>to be</em>?" }
     ];
 
+
+    /* ── elements each answer needs (checked one by one, never showing the answer) ── */
+    const PARTS = [
+      [ ["Subject: the thing that was reported", /^the incident\b/],
+        ["Past form of <em>be</em> for a singular subject", /\bwas\b/],
+        ["Past participle of <em>report</em>", /\breported\b/],
+        ["The rest of the sentence: <em>to the police yesterday</em>", /\bto the police yesterday\b/] ],
+      [ ["Subject: <em>Plans for a new park</em>", /^plans for a new park\b/],
+        ["Past form of <em>be</em> that agrees with a plural subject", /\bwere\b/],
+        ["Past participle of <em>announce</em>", /\bannounced\b/],
+        ["The time expression <em>last week</em> (<em>by the city council</em> is optional)", /\blast week\b/] ],
+      [ ["Subject: <em>Rania</em>", /^rania\b/],
+        ["Present perfect form of <em>be</em>", /\bhas been\b/],
+        ["Past participle of <em>promote</em>", /\bpromoted\b/],
+        ["The rest of the sentence: <em>twice since she joined the company</em>", /\btwice since she joined the company$/] ],
+      [ ["Subject: <em>Some glasses</em>", /^some glasses\b/],
+        ["Past form of <em>get</em>", /\bgot\b/],
+        ["Past participle of <em>break</em> (not the past simple)", /\bbroken\b/],
+        ["The rest of the sentence: <em>during the party</em>", /\bduring the party$/] ],
+      [ ["Subject: <em>Roberto</em>", /^roberto\b/],
+        ["Past form of <em>get</em> (instead of <em>was</em>)", /^roberto got\b/],
+        ["Past participle of <em>fire</em>", /\bfired\b/],
+        ["The rest of the sentence: <em>from his job last month</em>", /\bfrom his job last month$/] ],
+      [ ["Subject: <em>My bike</em>", /^my bike\b/],
+        ["Past form of <em>get</em> (instead of <em>was</em>)", /^my bike got\b/],
+        ["Past participle of <em>steal</em> (not the past simple)", /\bstolen\b/],
+        ["The rest of the sentence: <em>outside the library</em>", /\boutside the library$/] ],
+      [ ["Subject: <em>I</em>", /^i\b/],
+        ["Causative verb <em>have</em> in the past", /\bhad\b/],
+        ["The object (<em>my car</em>) right after <em>have</em>", /\bhad my car\b/],
+        ["Past participle of <em>fix</em>, after the object", /\bmy car fixed\b/],
+        ["The time expression <em>yesterday</em>", /\byesterday\b/] ],
+      [ ["Subject: <em>She</em>", /^she\b/],
+        ["Causative verb <em>have</em> or <em>get</em> in the past", /\b(had|got)\b/],
+        ["The object (<em>her hair</em>) right after the causative verb", /\b(had|got) her hair\b/],
+        ["Past participle of <em>cut</em>, after the object", /\bher hair cut\b/],
+        ["The rest of the sentence: <em>for the wedding</em>", /\bfor the wedding$/] ],
+      [ ["Subject: <em>I</em> (the person who arranged it)", /^i\b/],
+        ["Causative verb <em>have</em> or <em>get</em> in the past", /\b(had|got)\b/],
+        ["The object (<em>my eyes</em>) right after the causative verb", /\b(had|got) my eyes\b/],
+        ["Past participle of <em>test</em>, after the object", /\bmy eyes tested\b/],
+        ["The time expression <em>last week</em>", /\blast week\b/] ],
+      [ ["Start: <em>I hate</em>", /^i hate\b/],
+        ["<em>being</em> right after <em>hate</em>", /\bhate being\b/],
+        ["Past participle of <em>make</em>", /\bmade\b/],
+        ["In the passive, <em>make</em> is followed by <em>to</em> + verb", /\bmade to feel\b/],
+        ["The rest of the sentence: <em>left out</em>", /\bleft out$/] ],
+      [ ["Start: <em>She doesn't mind</em>", /^she does not mind\b/],
+        ["<em>being</em> right after <em>mind</em>", /\bmind being\b/],
+        ["Past participle of <em>ask</em>", /\basked\b/],
+        ["The rest of the sentence: <em>for advice</em>", /\bfor advice$/] ],
+      [ ["Start: <em>I remember</em>", /^i remember\b/],
+        ["<em>being</em> right after <em>remember</em>", /\bremember being\b/],
+        ["Past participle of <em>tell</em>", /\btold\b/],
+        ["The rest of the sentence: <em>the news</em>", /\bthe news$/] ],
+      [ ["Start: <em>I'm delighted</em>", /^i am delighted\b/],
+        ["Passive infinitive: <em>to</em> + <em>be</em>", /\bdelighted to (be|have been)\b/],
+        ["Past participle of <em>invite</em>, after the passive infinitive", /\b(be|been) invited\b/],
+        ["The rest of the sentence: <em>to join the group</em>", /\bto join the group$/] ],
+      [ ["Subject: <em>That building</em>", /^that building\b/],
+        ["<em>need</em> with third-person <em>-s</em>", /\bneeds\b/],
+        ["Passive infinitive after <em>need</em> (<em>to</em> + <em>be / get</em>)", /\bneeds (to (be|get)\b|repainting)/],
+        ["Past participle of <em>repaint</em>", /\b(repainted|repainting)$/] ],
+      [ ["Start: <em>I hope</em>", /^i hope\b/],
+        ["Passive infinitive: <em>to</em> + <em>be / get</em>", /\bhope to (be|get)\b/],
+        ["Past participle of <em>include</em>", /\bincluded\b/],
+        ["The rest of the sentence: <em>on the guest list</em>", /\bon the guest list$/] ],
+      [ ["Start: <em>I'm still waiting</em>", /^i am still waiting\b/],
+        ["Passive infinitive after <em>wait</em>: <em>to</em> + <em>be</em>", /\bwaiting to be\b/],
+        ["Past participle of <em>tell</em>", /\btold\b/],
+        ["The rest of the sentence: <em>the results</em>", /\bthe results$/] ],
+      [ ["Subject + <em>be</em>: <em>He's</em>", /^he('s| is)\b/],
+        ["An adjective that means <em>probably</em>", /\b(likely|probably)\b/],
+        ["Passive infinitive: <em>to</em> + <em>be / get</em>", /\bto (be|get)\b/],
+        ["Past participle of <em>call</em>", /\bcalled\b/],
+        ["The rest of the sentence: <em>for an interview</em>", /\bfor an interview$/] ],
+      [ ["Start: <em>Do you mind</em>", /^do you mind\b/],
+        ["<em>being</em> right after <em>mind</em>", /\bmind being\b/],
+        ["Past participle of <em>pick (up)</em>", /\bpicked up\b/],
+        ["The rest of the sentence: <em>a little later</em>", /\ba little later$/] ]
+    ];
+
+    /* ── how close is the answer? weighted word edit distance → 0–100 % ── */
+    function charSim(a, b) {
+      if (a === b) return 1;
+      const m = a.length, n = b.length;
+      if (!m || !n) return 0;
+      let prev = Array.from({ length: n + 1 }, (_, j) => j);
+      for (let i = 1; i <= m; i++) {
+        const cur = [i];
+        for (let j = 1; j <= n; j++) {
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        }
+        prev = cur;
+      }
+      return 1 - prev[n] / Math.max(m, n);
+    }
+
+    function matchPercent(answer, target) {
+      const A = normalise(answer).split(' ').filter(Boolean);
+      const B = normalise(target).split(' ').filter(Boolean);
+      const m = A.length, n = B.length;
+      if (!m) return 0;
+      let prev = Array.from({ length: n + 1 }, (_, j) => j);
+      for (let i = 1; i <= m; i++) {
+        const cur = [i];
+        for (let j = 1; j <= n; j++) {
+          const sub = 1 - charSim(A[i - 1], B[j - 1]);
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + sub);
+        }
+        prev = cur;
+      }
+      return Math.max(0, Math.round(100 * (1 - prev[n] / Math.max(m, n))));
+    }
+
+    function bestMatch(q, candidates) {
+      let best = 0, cand = candidates[0];
+      q.accepted.forEach(a => candidates.forEach(c => {
+        const m = matchPercent(c, a);
+        if (m > best) { best = m; cand = c; }
+      }));
+      return { pct: Math.min(best, 99), cand };
+    }
+
+    function elementsHtml(qi, full) {
+      const n = normalise(full);
+      const parts = PARTS[qi];
+      const rows = parts.map(([label, re]) => {
+        const ok = re.test(n);
+        return `<li class="${ok ? 'ok' : 'miss'}"><span class="mark">${ok ? '✓' : '✗'}</span><span>${label}</span></li>`;
+      });
+      const allOk = parts.every(([, re]) => re.test(n));
+      return `<div class="need-title">To get it right, you need:</div><ul class="need-list">${rows.join('')}</ul>` +
+        (allOk ? `<p class="need-note">All the pieces are there — check the word order, spelling and any extra words.</p>` : '');
+    }
+
     /* ── checking ── */
     function normalise(str) {
       return str
@@ -661,10 +812,10 @@
     function diagnose(full) {
       const n = ' ' + normalise(full) + ' ';
       if (/ (get|gets|got|getting|be|is|are|was|were|been|being) (broke|stole|took|gave|wrote|spoke|chose|forgot|ate|drove|tore|wore|bit|hid|fell|cutted|teached|telled) /.test(n)) {
-        return "Careful: after <em>be / get</em>, use the <strong>past participle</strong> (<em>broken, stolen, given</em>) — not the past simple.";
+        return "Careful: after <em>be / get</em>, use the <strong>past participle</strong>, not the past simple (e.g. <em>written</em>, not <em>wrote</em>; <em>eaten</em>, not <em>ate</em>).";
       }
       if (/ (had|has|have|got|get|gets) (fixed|cut|tested|repaired|done|cleaned|delivered) (my|her|his|their|our|the|it) /.test(n)) {
-        return "Careful: in the causative the <strong>object goes before the participle</strong>: <em>had <u>my car</u> fixed</em>, not <em>had fixed my car</em>.";
+        return "Careful: in the causative the <strong>object goes before the participle</strong>: <em>have</em> + object + participle (e.g. <em>I had <u>the walls</u> painted</em>, not <em>I had painted the walls</em>).";
       }
       if (/ (hope|hoping|waiting|wait|likely|delighted|need|needs|want|expect) being /.test(n)) {
         return "Careful: after this word, use the <strong>infinitive</strong>: <em>to be</em> + participle, not <em>being</em>.";
@@ -711,19 +862,26 @@
       if (correct) {
         input.classList.add('correct-input');
         fb.className = 'feedback-box show correct-fb';
-        fb.innerHTML = `✓ <strong>Well done!</strong> ${q.explanation}`;
+        fb.innerHTML = `<div class="match-line"><strong>100% match</strong><div class="match-bar high"><span style="width:100%"></span></div></div>✓ <strong>Well done!</strong> ${q.explanation}`;
         status.className   = 'q-status correct';
-        status.textContent = '✓ Correct';
+        status.textContent = '✓ 100%';
         card.querySelector('.btn-show-answer').style.display = 'none';
       } else {
         const specific = diagnose(full);
-        input.classList.add(specific ? 'partial-input' : 'wrong-input');
-        fb.className = specific ? 'feedback-box show partial-fb' : 'feedback-box show wrong-fb';
-        fb.innerHTML = specific
-          ? `◑ <strong>Almost.</strong> ${specific}`
-          : `✗ <strong>Not quite.</strong> ${q.hint}`;
+        const firstWord = normalise(q.accepted[0]).split(' ')[0];
+        const nVal      = normalise(val);
+        const cand      = (q.given || q.prefix) && nVal.startsWith(firstWord + ' ') ? val : full;
+        const pct       = Math.min(99, Math.max(...q.accepted.map(a => matchPercent(cand, a))));
+        const level    = pct >= 80 ? 'high' : pct >= 50 ? 'mid' : 'low';
+        input.classList.add(pct >= 50 ? 'partial-input' : 'wrong-input');
+        fb.className = pct >= 50 ? 'feedback-box show partial-fb' : 'feedback-box show wrong-fb';
+        fb.innerHTML =
+          `<div class="match-line"><strong>${pct}% match</strong>` +
+          `<div class="match-bar ${level}"><span style="width:${pct}%"></span></div></div>` +
+          elementsHtml(qi, cand) +
+          (specific ? `<p class="need-tip">💡 ${specific}</p>` : '');
         status.className   = 'q-status wrong';
-        status.textContent = specific ? '◑ Almost' : '✗ Incorrect';
+        status.textContent = `◑ ${pct}%`;
       }
 
       actions.classList.add('show');
