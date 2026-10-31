@@ -171,9 +171,11 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 3rem 2rem 1.5rem;
+      padding: .5rem 2rem 1rem;
       max-width: 700px;
-      margin: 0 auto;
+      margin: -48vh auto 0;   /* pull the options up over the lower part of the scene */
+      position: relative;
+      z-index: 20;
     }
     .divider-line {
       flex: 1;
@@ -186,6 +188,7 @@
       font-style: italic;
       color: var(--accent);
       letter-spacing: .04em;
+      text-shadow: 0 0 6px rgba(245,240,235,.95), 0 0 12px rgba(245,240,235,.9);
     }
 
     /* ── CARDS SECTION ── */
@@ -193,6 +196,8 @@
       padding: 1rem 1.5rem 5rem;
       max-width: 860px;
       margin: 0 auto;
+      position: relative;
+      z-index: 20;
     }
 
     .section-label {
@@ -203,6 +208,7 @@
       color: var(--text-muted);
       margin-bottom: 1rem;
       padding: 0 .25rem;
+      text-shadow: 0 0 6px rgba(245,240,235,.95), 0 0 12px rgba(245,240,235,.9);
     }
 
     .cards-grid {
@@ -270,7 +276,7 @@
     }
 
     .card.locked {
-      background: transparent;
+      background: rgba(245,240,235,.96);  /* readable over the scene */
       border: 1.5px dashed var(--border);
       box-shadow: none;
       pointer-events: none;
