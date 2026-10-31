@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using Linkers — Explanation · C1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+
+      --def-bg:     #eef3f8;
+      --def-border: #b0c8e0;
+      --def-accent: #2c4a6e;
+      --non-bg:     #eef6f0;
+      --non-border: #a8d4b4;
+      --non-accent: #2d7a3e;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .page-header p {
+      margin-top: .6rem;
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .section-block-header {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .section-block-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-block-body {
+      padding: 1.3rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .prose {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .prose strong { font-weight: 600; }
+    .prose em { font-style: italic; color: var(--text-muted); }
+
+    .intro-note {
+      background: var(--def-bg);
+      border-left: 3px solid var(--def-accent);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    /* Defining / Non-defining cards */
+    .type-card {
+      border-radius: 10px;
+      border: 1px solid;
+      overflow: hidden;
+    }
+    .type-card.def { background: var(--def-bg); border-color: var(--def-border); }
+    .type-card.non { background: var(--non-bg); border-color: var(--non-border); }
+
+    .type-card-header {
+      padding: .65rem 1rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid;
+    }
+    .type-card.def .type-card-header { color: var(--def-accent); border-color: var(--def-border); }
+    .type-card.non .type-card-header { color: var(--non-accent); border-color: var(--non-border); }
+
+    .type-card-body { padding: .9rem 1rem; }
+    .type-desc {
+      font-size: .88rem;
+      color: var(--text-muted);
+      margin-bottom: .8rem;
+      line-height: 1.55;
+    }
+
+    /* Sentence comparison */
+    .comparison { display: flex; flex-direction: column; gap: .5rem; }
+    .sentence-row { display: flex; align-items: flex-start; gap: .6rem; }
+    .sentence-label {
+      flex-shrink: 0;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      margin-top: .18rem;
+      min-width: 52px;
+      text-align: center;
+    }
+    .label-a, .label-b { background: #e8e4dc; color: #6a5f55; }
+    .label-result { color: #fff; }
+    .def .label-result { background: var(--def-accent); }
+    .non .label-result { background: var(--non-accent); }
+
+    .sentence-text { font-size: .92rem; line-height: 1.55; color: var(--text); }
+    .sentence-text .highlight {
+      font-weight: 600;
+      border-bottom: 2px solid;
+      padding-bottom: 1px;
+    }
+    .def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+
+    .arrow-row {
+      display: flex; align-items: center; gap: .6rem; padding-left: 58px;
+    }
+    .arrow-line { flex: 1; height: 1px; border-top: 1.5px dashed #ccc; }
+    .arrow-label { font-size: .7rem; color: var(--text-muted); font-style: italic; white-space: nowrap; }
+
+    /* Pronoun table */
+    .pronoun-table {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: .88rem;
+    }
+    .pronoun-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .pronoun-row.head {
+      background: var(--bg);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pronoun-row > span {
+      padding: .65rem .9rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .pronoun-row > span:not(:last-child) { border-right: 1px solid var(--border); }
+    .pronoun-row:last-child > span { border-bottom: none; }
+    .tag-yes { color: var(--green); font-weight: 700; }
+    .tag-no  { color: var(--red);   font-weight: 700; }
+
+    /* Omission section */
+    .omit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) { .omit-grid { grid-template-columns: 1fr; } }
+
+    .omit-card {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .omit-card-header {
+      padding: .6rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .omit-card.can    .omit-card-header { background: #eaf5ec; color: var(--green); }
+    .omit-card.cannot .omit-card-header { background: #fdf0ee; color: var(--red); }
+    .omit-card-body {
+      padding: .85rem 1rem;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .omit-desc { font-size: .83rem; color: var(--text-muted); line-height: 1.55; }
+    .omit-example {
+      font-size: .9rem;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 3px solid;
+      padding-left: .7rem;
+    }
+    .omit-card.can    .omit-example { border-color: var(--green); }
+    .omit-card.cannot .omit-example { border-color: var(--red); }
+
+    /* Watch out */
+    .watchout {
+      background: #fdf6e8;
+      border: 1px solid #e8c87a;
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+    }
+    .watchout-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .watchout p { font-size: .88rem; line-height: 1.65; color: var(--text); }
+    .watchout ul {
+      margin-top: .5rem;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .watchout li { font-size: .88rem; line-height: 1.55; }
+
+    /* Error blocks */
+    .error-block {
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .error-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .error-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; }
+
+    .inline-ex { font-size: .88rem; line-height: 1.8; }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      margin-top: .1rem;
+    }
+    .step-body { flex: 1; }
+    .step-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); margin-bottom: .3rem; }
+    .step-ex { font-size: .92rem; line-height: 1.55; color: var(--text); }
+
+    /* Position examples */
+    .position-grid { display: flex; flex-direction: column; gap: .8rem; }
+    .position-example {
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .position-example .pos-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: .35rem;
+    }
+    .pos-clause { font-weight: 600; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 1px; }
+    .pos-clause.non { color: var(--green); border-color: var(--green); }
+    .pos-comma { color: var(--red); font-weight: 700; }
+
+    /* Nav */
+    .page-nav {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: .7rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-next:hover { opacity: .85; }
+    .btn-next.locked { opacity: .45; pointer-events: none; }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+    @media (max-width: 560px) {
+      .pronoun-row { grid-template-columns: 1fr; }
+      .pronoun-row.head { display: none; }
+      .pronoun-row > span:not(:last-child) { border-right: none; }
+      .pronoun-row > span { border-bottom: none; padding: .35rem .9rem; }
+      .pronoun-row > span:first-child { padding-top: .8rem; }
+      .pronoun-row > span:last-child { padding-bottom: .8rem; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: .82rem; }
+      .pronoun-row:last-child > span:last-child { border-bottom: none; }
+    }
+    .comparison + .comparison { margin-top: .4rem; }
+    .comparison.def .label-result { background: var(--def-accent); }
+    .comparison.non .label-result { background: var(--non-accent); }
+    .comparison.def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .comparison.non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+    .sentence-label { min-width: 72px; }
+    .omit-card.inv .omit-card-header { background: var(--def-bg); color: var(--accent); }
+    .omit-card.inv .omit-example { border-color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a><span>›</span>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/c1.html">C1</a><span>›</span>
+    Grammar<span>›</span>
+    Using Linkers<span>›</span>
+    <span>Explanation</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · C1</p>
+    <h1>Using Linkers</h1>
+    <p>Linkers connect ideas: reason, result, purpose, contrast and comparison. Choosing the right meaning is only half the job — at C1, the key question is <strong>what comes after the linker</strong>: a full clause, a noun, an infinitive, or a new sentence.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. WHAT COMES AFTER -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>The key question: what comes after?</h2></div>
+      <div class="section-block-body">
+        <div class="intro-note">
+          Linkers with similar meanings often need <strong>different grammar</strong>. <em>Although</em> and <em>despite</em> both express contrast, but <em>although</em> is followed by a clause (subject + verb) and <em>despite</em> by a noun or an <em>-ing</em> form.
+        </div>
+        <div class="comparison def">
+          <div class="sentence-row">
+            <span class="sentence-label label-result">+ clause</span>
+            <span class="sentence-text"><span class="highlight">Although he works long hours</span>, he doesn't earn much money.</span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">+ noun</span>
+            <span class="sentence-text">I danced all night <span class="highlight">despite my uncomfortable shoes</span>.</span>
+          </div>
+        </div>
+        <div class="comparison non">
+          <div class="sentence-row">
+            <span class="sentence-label label-result">+ sentence</span>
+            <span class="sentence-text">The food was delicious. <span class="highlight">However, it was far too expensive.</span></span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">+ to + verb</span>
+            <span class="sentence-text">I got up early <span class="highlight">in order to clean the apartment</span>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. TABLE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Linkers by meaning</h2></div>
+      <div class="section-block-body">
+        <div class="pronoun-table">
+          <div class="pronoun-row head">
+            <span>Linker</span>
+            <span>Followed by</span>
+            <span>Example</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Reason:</strong> because / as / since</span>
+            <span>clause</span>
+            <span><em>We ate the cheese <strong>because</strong> we were hungry.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Reason:</strong> because of / due to</span>
+            <span>noun</span>
+            <span><em>The party was canceled <strong>due to</strong> bad weather.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Result:</strong> so</span>
+            <span>clause (same sentence)</span>
+            <span><em>I was tired, <strong>so</strong> I went to bed.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Result:</strong> As a result / Consequently / Therefore</span>
+            <span>new sentence + comma</span>
+            <span><em>The movie was boring. <strong>As a result,</strong> we left early.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Result:</strong> or (= if not)</span>
+            <span>clause</span>
+            <span><em>Please hurry up <strong>or</strong> we'll miss the train.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Purpose:</strong> to / in order to / so as to</span>
+            <span>base verb</span>
+            <span><em>I got up early <strong>so as to</strong> clean the apartment.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Purpose:</strong> so (that)</span>
+            <span>clause (often with <em>can / could</em>)</span>
+            <span><em>I joined a gym <strong>so that</strong> I could get in shape.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Contrast:</strong> although / even though</span>
+            <span>clause</span>
+            <span><em><strong>Even though</strong> it rained, we had fun.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Contrast:</strong> despite / in spite of</span>
+            <span>noun / -ing / <em>the fact that</em> + clause</span>
+            <span><em><strong>In spite of</strong> being tired, I went out.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Contrast:</strong> However / Nevertheless</span>
+            <span>new sentence + comma</span>
+            <span><em>It was cheap. <strong>However,</strong> it was ugly.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Comparison:</strong> whereas / while</span>
+            <span>clause</span>
+            <span><em>I walk to college, <strong>whereas</strong> my friends take the subway.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Comparison:</strong> unlike</span>
+            <span>noun</span>
+            <span><em><strong>Unlike</strong> my sister, I'm tall, with dark hair.</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CLAUSE vs NOUN -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Clause or noun? Same idea, different linker</h2></div>
+      <div class="section-block-body">
+        <p class="prose">Many linkers come in pairs: one for a <strong>clause</strong>, one for a <strong>noun / -ing</strong>. When you change the linker, you must change the grammar after it.</p>
+        <div class="omit-grid">
+          <div class="omit-card inv">
+            <div class="omit-card-header">+ clause (subject + verb)</div>
+            <div class="omit-card-body">
+              <p class="omit-example"><strong>because</strong> the weather was bad</p>
+              <p class="omit-example"><strong>although</strong> I was very tired</p>
+              <p class="omit-example"><strong>whereas</strong> my sister is short</p>
+            </div>
+          </div>
+          <div class="omit-card can">
+            <div class="omit-card-header">+ noun / -ing</div>
+            <div class="omit-card-body">
+              <p class="omit-example"><strong>because of / due to</strong> the bad weather</p>
+              <p class="omit-example"><strong>despite / in spite of</strong> being very tired</p>
+              <p class="omit-example"><strong>unlike</strong> my sister</p>
+            </div>
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ Need a clause after despite? Add the fact that</div>
+          <p><em>Despite</em> and <em>in spite of</em> can't take a clause directly — but <em>the fact that</em> turns the clause into a noun phrase:</p>
+          <ul>
+            <li>❌ <em>Eloy is loved by his students <strong>despite he is</strong> very strict.</em></li>
+            <li>✅ <em>…despite <strong>the fact that he is</strong> very strict.</em> &nbsp;·&nbsp; ✅ <em>…despite <strong>being</strong> very strict.</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SENTENCE LINKERS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>However, Therefore, Consequently… — punctuation matters</h2></div>
+      <div class="section-block-body">
+        <p class="prose">These linkers connect two <strong>separate sentences</strong>. Use a full stop (or a semicolon) before them and a <strong>comma after</strong> them. A comma alone before <em>however</em> is not enough.</p>
+        <div class="position-grid">
+          <div class="position-example">
+            <span class="pos-label">Full stop + linker + comma</span>
+            Our sales have doubled<span class="pos-comma">.</span> <span class="pos-clause">However,</span> we are still not making a profit.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">Semicolon + linker + comma</span>
+            We're expanding our company<span class="pos-comma">;</span> <span class="pos-clause non">consequently,</span> we're advertising for new staff.
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ As a result vs as a result of</div>
+          <ul>
+            <li><em>The roads were icy. <strong>As a result,</strong> schools closed.</em> <span style="color:var(--text-muted);">(new sentence)</span></li>
+            <li><em><strong>As a result of</strong> the icy roads, schools closed.</em> <span style="color:var(--text-muted);">(+ noun)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PURPOSE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Purpose: in order to, so as to, so that</h2></div>
+      <div class="section-block-body">
+        <div class="position-grid">
+          <div class="position-example">
+            <span class="pos-label">to / in order to / so as to + base verb</span>
+            We've made some changes to the menu <span class="pos-clause">in order to keep</span> costs down.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">Negative: in order not to / so as not to</span>
+            I crept quietly out of the room <span class="pos-clause">so as not to disturb</span> her.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">so (that) + subject + can / could / will</span>
+            You need to leave now <span class="pos-clause non">so that you get</span> there before dinner.
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ Where does not go?</div>
+          <p><em>Not</em> goes <strong>before</strong> <em>to</em>: <em>so as <strong>not to</strong></em>, <em>in order <strong>not to</strong></em> — not <em>so as to not</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. COMMON ERRORS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>❌ Common errors</h2></div>
+      <div class="section-block-body">
+
+        <div class="error-block">
+          <div class="error-title">1. <em>Despite / in spite of</em> + clause</div>
+          <div class="inline-ex">
+            ❌ <em><strong>In spite of I was</strong> very tired, I enjoyed our dinner out.</em><br>
+            ✅ <em><strong>In spite of being</strong> very tired… / <strong>In spite of the fact that I was</strong> very tired…</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">2. <em>As a result</em> + noun (missing <em>of</em>)</div>
+          <div class="inline-ex">
+            ❌ <em><strong>As a result the shortage</strong> of eggs, we're not serving pancakes.</em><br>
+            ✅ <em><strong>As a result of the shortage</strong> of eggs, we're not serving pancakes.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">3. A comma before <em>however / nevertheless</em></div>
+          <div class="inline-ex">
+            ❌ <em>Our sales have doubled<strong>, however</strong> we are still not making a profit.</em><br>
+            ✅ <em>Our sales have doubled<strong>. However,</strong> we are still not making a profit.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">4. <em>Because of / due to</em> + clause</div>
+          <div class="inline-ex">
+            ❌ <em>She took time off work <strong>due to she was</strong> ill.</em><br>
+            ✅ <em>She took time off work <strong>because she was</strong> ill. / …<strong>due to illness</strong>.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">5. <em>Whereas</em> + noun / <em>unlike</em> + clause</div>
+          <div class="inline-ex">
+            ❌ <em><strong>Whereas you</strong>, I don't enjoy working out.</em><br>
+            ✅ <em><strong>Unlike you</strong>, I don't enjoy working out.</em> &nbsp;·&nbsp; ✅ <em><strong>Whereas you love it</strong>, I don't enjoy working out.</em>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 7. STEP-BY-STEP -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>💡 Step-by-step: choosing a linker</h2></div>
+      <div class="section-block-body">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <div class="step-label">What's the relationship?</div>
+              <div class="step-ex">reason · result · purpose · contrast · comparison</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <div class="step-label">Look at what comes next.</div>
+              <div class="step-ex">Subject + verb → <em>because, although, whereas, so that</em><br>Noun / -ing → <em>because of, due to, despite, unlike</em><br>Base verb → <em>to, in order to, so as to</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <div class="step-label">Is it a new sentence?</div>
+              <div class="step-ex">Use <em>However, Nevertheless, Therefore, Consequently, As a result</em> — full stop before, comma after.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <div class="step-label">Changing the linker? Change the grammar.</div>
+              <div class="step-ex"><em>although I was tired</em> → <em>despite being tired</em> / <em>despite the fact that I was tired</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <div class="step-label">Check the punctuation and <em>not</em>.</div>
+              <div class="step-ex">Comma after sentence linkers · <em>so as <strong>not to</strong></em>, not <em>so as to not</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-nav">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/linkers_recognition.html" class="btn-next">Next: Recognition →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+</body>
+</html>
