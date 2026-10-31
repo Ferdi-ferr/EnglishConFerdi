@@ -533,12 +533,12 @@
         need: "<strong><em>whereas / while</em> + subject + verb</strong>, or <strong><em>unlike</em> + noun</strong> + the comparison." }
     ];
 
-    const SUPPORT = ["The beginning is given", "Only the first word is given", "No help — your turn"];
+    const SUPPORT = ["The first words are given", "Only the first word is given", "No help — your turn"];
 
     const QUESTIONS = [
       // ── SET 1 ──
       { set: 0, use: "due to", original: "The party was canceled because the weather was bad.",
-        prefix: "", given: "The party was canceled due to",
+        prefix: "", given: "The party",
         accepted: ["The party was canceled due to the bad weather.", "The party was canceled due to bad weather.", "The party was cancelled due to the bad weather.", "The party was cancelled due to bad weather."],
         explanation: "<em>Due to</em> + noun phrase: <strong><em>due to (the) bad weather</em></strong>. The clause <em>the weather was bad</em> becomes a noun phrase." },
       { set: 0, use: "because of", original: "Some shows have been canceled because ticket sales were low.",
@@ -552,7 +552,7 @@
 
       // ── SET 2 ──
       { set: 1, use: "As a result", original: "The movie was boring, so we left early.",
-        prefix: "", given: "The movie was boring. As a result,",
+        prefix: "", given: "The movie",
         accepted: ["The movie was boring. As a result, we left early.", "The movie was boring; as a result, we left early."],
         explanation: "Two sentences: <strong><em>The movie was boring. As a result, we left early.</em></strong> Notice the comma after the linker." },
       { set: 1, use: "Consequently", original: "We're expanding our company, so we're advertising for new staff.",
@@ -566,7 +566,7 @@
 
       // ── SET 3 ──
       { set: 2, use: "in order to", original: "I got up early because I wanted to clean the apartment.",
-        prefix: "", given: "I got up early in order to",
+        prefix: "", given: "I got",
         accepted: ["I got up early in order to clean the apartment."],
         explanation: "<em>In order to</em> + base verb: <strong><em>in order to clean</em></strong>. <em>Because I wanted</em> disappears." },
       { set: 2, use: "so as not to", original: "I crept out of the room quietly because I didn't want to disturb her.",
@@ -580,7 +580,7 @@
 
       // ── SET 4 ──
       { set: 3, use: "despite", original: "Although he is very strict, Eloy is loved by his students.",
-        prefix: "", given: "Despite being",
+        prefix: "", given: "Despite",
         accepted: ["Despite being very strict, Eloy is loved by his students.", "Despite the fact that he is very strict, Eloy is loved by his students."],
         explanation: "<em>Despite</em> + -ing: <strong><em>Despite being very strict, …</em></strong>" },
       { set: 3, use: "in spite of", original: "Although I was very tired, I enjoyed our dinner out.",
@@ -594,7 +594,7 @@
 
       // ── SET 5 ──
       { set: 4, use: "However", original: "Our sales have doubled, but we are still not making a profit.",
-        prefix: "", given: "Our sales have doubled. However,",
+        prefix: "", given: "Our sales",
         accepted: ["Our sales have doubled. However, we are still not making a profit.", "Our sales have doubled; however, we are still not making a profit."],
         explanation: "Full stop + <strong><em>However,</em></strong> + the contrast." },
       { set: 4, use: "Nevertheless", original: "We've clashed a few times over the years, but I wish her well.",
@@ -608,7 +608,7 @@
 
       // ── SET 6 ──
       { set: 5, use: "whereas", original: "I walk to college, but my friends take the subway.",
-        prefix: "", given: "I walk to college, whereas",
+        prefix: "", given: "I walk",
         accepted: ["I walk to college, whereas my friends take the subway."],
         explanation: "<em>Whereas</em> + clause: <strong><em>whereas my friends take the subway</em></strong>." },
       { set: 5, use: "Unlike", original: "My sister is short and blonde, but I'm tall with dark hair.",
