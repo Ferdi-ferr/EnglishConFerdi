@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Passive — Explanation · C1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+
+      --def-bg:     #eef3f8;
+      --def-border: #b0c8e0;
+      --def-accent: #2c4a6e;
+      --non-bg:     #eef6f0;
+      --non-border: #a8d4b4;
+      --non-accent: #2d7a3e;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .page-header p {
+      margin-top: .6rem;
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .section-block-header {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .section-block-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-block-body {
+      padding: 1.3rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .prose {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .prose strong { font-weight: 600; }
+    .prose em { font-style: italic; color: var(--text-muted); }
+
+    .intro-note {
+      background: var(--def-bg);
+      border-left: 3px solid var(--def-accent);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    /* Defining / Non-defining cards */
+    .type-card {
+      border-radius: 10px;
+      border: 1px solid;
+      overflow: hidden;
+    }
+    .type-card.def { background: var(--def-bg); border-color: var(--def-border); }
+    .type-card.non { background: var(--non-bg); border-color: var(--non-border); }
+
+    .type-card-header {
+      padding: .65rem 1rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid;
+    }
+    .type-card.def .type-card-header { color: var(--def-accent); border-color: var(--def-border); }
+    .type-card.non .type-card-header { color: var(--non-accent); border-color: var(--non-border); }
+
+    .type-card-body { padding: .9rem 1rem; }
+    .type-desc {
+      font-size: .88rem;
+      color: var(--text-muted);
+      margin-bottom: .8rem;
+      line-height: 1.55;
+    }
+
+    /* Sentence comparison */
+    .comparison { display: flex; flex-direction: column; gap: .5rem; }
+    .sentence-row { display: flex; align-items: flex-start; gap: .6rem; }
+    .sentence-label {
+      flex-shrink: 0;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      margin-top: .18rem;
+      min-width: 52px;
+      text-align: center;
+    }
+    .label-a, .label-b { background: #e8e4dc; color: #6a5f55; }
+    .label-result { color: #fff; }
+    .def .label-result { background: var(--def-accent); }
+    .non .label-result { background: var(--non-accent); }
+
+    .sentence-text { font-size: .92rem; line-height: 1.55; color: var(--text); }
+    .sentence-text .highlight {
+      font-weight: 600;
+      border-bottom: 2px solid;
+      padding-bottom: 1px;
+    }
+    .def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+
+    .arrow-row {
+      display: flex; align-items: center; gap: .6rem; padding-left: 58px;
+    }
+    .arrow-line { flex: 1; height: 1px; border-top: 1.5px dashed #ccc; }
+    .arrow-label { font-size: .7rem; color: var(--text-muted); font-style: italic; white-space: nowrap; }
+
+    /* Pronoun table */
+    .pronoun-table {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: .88rem;
+    }
+    .pronoun-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .pronoun-row.head {
+      background: var(--bg);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pronoun-row > span {
+      padding: .65rem .9rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .pronoun-row > span:not(:last-child) { border-right: 1px solid var(--border); }
+    .pronoun-row:last-child > span { border-bottom: none; }
+    .tag-yes { color: var(--green); font-weight: 700; }
+    .tag-no  { color: var(--red);   font-weight: 700; }
+
+    /* Omission section */
+    .omit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) { .omit-grid { grid-template-columns: 1fr; } }
+
+    .omit-card {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .omit-card-header {
+      padding: .6rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .omit-card.can    .omit-card-header { background: #eaf5ec; color: var(--green); }
+    .omit-card.cannot .omit-card-header { background: #fdf0ee; color: var(--red); }
+    .omit-card-body {
+      padding: .85rem 1rem;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .omit-desc { font-size: .83rem; color: var(--text-muted); line-height: 1.55; }
+    .omit-example {
+      font-size: .9rem;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 3px solid;
+      padding-left: .7rem;
+    }
+    .omit-card.can    .omit-example { border-color: var(--green); }
+    .omit-card.cannot .omit-example { border-color: var(--red); }
+
+    /* Watch out */
+    .watchout {
+      background: #fdf6e8;
+      border: 1px solid #e8c87a;
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+    }
+    .watchout-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .watchout p { font-size: .88rem; line-height: 1.65; color: var(--text); }
+    .watchout ul {
+      margin-top: .5rem;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .watchout li { font-size: .88rem; line-height: 1.55; }
+
+    /* Error blocks */
+    .error-block {
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .error-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .error-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; }
+
+    .inline-ex { font-size: .88rem; line-height: 1.8; }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      margin-top: .1rem;
+    }
+    .step-body { flex: 1; }
+    .step-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); margin-bottom: .3rem; }
+    .step-ex { font-size: .92rem; line-height: 1.55; color: var(--text); }
+
+    /* Position examples */
+    .position-grid { display: flex; flex-direction: column; gap: .8rem; }
+    .position-example {
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .position-example .pos-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: .35rem;
+    }
+    .pos-clause { font-weight: 600; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 1px; }
+    .pos-clause.non { color: var(--green); border-color: var(--green); }
+    .pos-comma { color: var(--red); font-weight: 700; }
+
+    /* Nav */
+    .page-nav {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: .7rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-next:hover { opacity: .85; }
+    .btn-next.locked { opacity: .45; pointer-events: none; }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+    @media (max-width: 560px) {
+      .pronoun-row { grid-template-columns: 1fr; }
+      .pronoun-row.head { display: none; }
+      .pronoun-row > span:not(:last-child) { border-right: none; }
+      .pronoun-row > span { border-bottom: none; padding: .35rem .9rem; }
+      .pronoun-row > span:first-child { padding-top: .8rem; }
+      .pronoun-row > span:last-child { padding-bottom: .8rem; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: .82rem; }
+      .pronoun-row:last-child > span:last-child { border-bottom: none; }
+    }
+    .comparison + .comparison { margin-top: .4rem; }
+    .comparison.def .label-result { background: var(--def-accent); }
+    .comparison.non .label-result { background: var(--non-accent); }
+    .comparison.def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .comparison.non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+    .sentence-label { min-width: 72px; }
+    .omit-card.inv .omit-card-header { background: var(--def-bg); color: var(--accent); }
+    .omit-card.inv .omit-example { border-color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a><span>›</span>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/c1.html">C1</a><span>›</span>
+    Grammar<span>›</span>
+    The Passive<span>›</span>
+    <span>Explanation</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · C1</p>
+    <h1>The Passive: be / get, causatives, -ing &amp; infinitives</h1>
+    <p>We use the passive when the action matters more than the person who does it. At C1, the challenge is choosing the right version: <em>be</em> or <em>get</em>, a causative with <em>have</em> or <em>get</em>, and passive forms after other verbs — <em>being told</em> or <em>to be told</em>.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. WHY PASSIVE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Why use the passive?</h2></div>
+      <div class="section-block-body">
+        <div class="intro-note">
+          The passive puts the focus on <strong>what happens</strong> (or what happened to someone), not on <strong>who does it</strong>. The person who does the action is often unknown, obvious or unimportant. If we want to mention them, we use <strong><em>by</em></strong>.
+        </div>
+        <div class="comparison def">
+          <div class="sentence-row">
+            <span class="sentence-label label-a">Active</span>
+            <span class="sentence-text">Someone reported the incident to the police.</span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Passive</span>
+            <span class="sentence-text">The incident <span class="highlight">was reported</span> to the police.</span>
+          </div>
+        </div>
+        <p class="prose">The basic form is always <strong><em>be</em> (or <em>get</em>) + past participle</strong>. The tense is carried by <em>be / get</em>; the main verb is always the participle (<em>reported, broken, told</em>).</p>
+      </div>
+    </div>
+
+    <!-- 2. BE vs GET -->
+    <div class="section-block">
+      <div class="section-block-header"><h2><em>be</em> passive vs <em>get</em> passive</h2></div>
+      <div class="section-block-body">
+
+        <div class="type-card def">
+          <div class="type-card-header">be passive — neutral, works everywhere</div>
+          <div class="type-card-body">
+            <p class="type-desc">The standard passive. Use it in formal and informal English, in writing and speech, with <strong>any</strong> verb.</p>
+            <div class="comparison def">
+              <div class="sentence-row">
+                <span class="sentence-label label-result">be</span>
+                <span class="sentence-text">Plans for a new community center <span class="highlight">were announced</span> yesterday.</span>
+              </div>
+              <div class="sentence-row">
+                <span class="sentence-label label-result">be</span>
+                <span class="sentence-text">Rania <span class="highlight">has been promoted</span> twice since she joined.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-card non">
+          <div class="type-card-header">get passive — informal, things that happen</div>
+          <div class="type-card-body">
+            <p class="type-desc">More informal and typical of speech. It describes something that <strong>happens</strong> to someone or something — often unexpected, accidental or negative.</p>
+            <div class="comparison non">
+              <div class="sentence-row">
+                <span class="sentence-label label-result">get</span>
+                <span class="sentence-text">Our house <span class="highlight">got broken</span> into last week.</span>
+              </div>
+              <div class="sentence-row">
+                <span class="sentence-label label-result">get</span>
+                <span class="sentence-text">Guess what I just <span class="highlight">got given</span>? Two free concert tickets!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="watchout">
+          <div class="watchout-title">⚠ get needs an action</div>
+          <p><em>Get</em> describes a change or an event, so it doesn't work with <strong>state verbs</strong> like <em>love, know, respect, own, believe</em>. Use <em>be</em>.</p>
+          <ul>
+            <li>❌ <em>He <strong>got loved</strong> by all his coworkers.</em></li>
+            <li>✅ <em>He <strong>was loved</strong> by all his coworkers.</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FORMS TABLE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>The passive in different tenses</h2></div>
+      <div class="section-block-body">
+        <div class="pronoun-table">
+          <div class="pronoun-row head">
+            <span>Tense</span>
+            <span>be passive</span>
+            <span>get passive</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Present simple</strong></span>
+            <span><em>It <strong>is cleaned</strong> every day.</em></span>
+            <span><em>It <strong>gets cleaned</strong> every day.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Past simple</strong></span>
+            <span><em>He <strong>was fired</strong>.</em></span>
+            <span><em>He <strong>got fired</strong>.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Continuous</strong></span>
+            <span><em>The toilets <strong>were being cleaned</strong>.</em></span>
+            <span><em>The toilets <strong>were getting cleaned</strong>.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Present perfect</strong></span>
+            <span><em>She <strong>has been promoted</strong>.</em></span>
+            <span><em>She <strong>has got(ten) promoted</strong>.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Future / modals</strong></span>
+            <span><em>You <strong>will be told</strong> soon.</em></span>
+            <span><em>You <strong>might get told</strong> off.</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CAUSATIVE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Causative: have / get something done</h2></div>
+      <div class="section-block-body">
+        <p class="prose">We use the causative when <strong>someone else</strong> does something for us — usually a service we ask or pay for. The order is fixed: <strong><em>have / get</em> + object + past participle</strong>.</p>
+        <div class="comparison def">
+          <div class="sentence-row">
+            <span class="sentence-label label-a">Active</span>
+            <span class="sentence-text">I fixed my car. <span style="color:var(--text-muted);font-size:.82rem;">(I did it myself)</span></span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Causative</span>
+            <span class="sentence-text">I <span class="highlight">had my car fixed</span>. <span style="color:var(--text-muted);font-size:.82rem;">(a mechanic did it)</span></span>
+          </div>
+        </div>
+        <div class="position-grid">
+          <div class="position-example">
+            <span class="pos-label">have — neutral</span>
+            I need to <span class="pos-clause">have</span> this parcel <span class="pos-clause">delivered</span>.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">get — more informal</span>
+            She recently <span class="pos-clause non">got</span> her eyes <span class="pos-clause non">tested</span>.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">Something bad that happened to you</span>
+            I <span class="pos-clause">had</span> my phone <span class="pos-clause">stolen</span> on the train.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. -ING vs INFINITIVE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>being done or to be done?</h2></div>
+      <div class="section-block-body">
+        <p class="prose">After some verbs, adjectives and prepositions, the passive appears as an <strong style="white-space:nowrap">-ing form</strong> or an <strong>infinitive</strong>. The word <em>before</em> it decides which one — the same rule as in the active (<em>I hate waiting</em> / <em>I hope to win</em>).</p>
+        <div class="omit-grid">
+          <div class="omit-card inv">
+            <div class="omit-card-header">being + past participle</div>
+            <div class="omit-card-body">
+              <p class="omit-desc">After <em>hate, mind, remember, enjoy, avoid</em>, after prepositions (<em>of, about, without</em>), and as the subject of a sentence.</p>
+              <p class="omit-example">I hate <strong>being made</strong> to feel left out.</p>
+              <p class="omit-example">I dream of <strong>being offered</strong> an amazing house.</p>
+              <p class="omit-example"><strong>Being ordered</strong> around is not something I enjoy.</p>
+            </div>
+          </div>
+          <div class="omit-card can">
+            <div class="omit-card-header">to be / to get + past participle</div>
+            <div class="omit-card-body">
+              <p class="omit-desc">After <em>hope, want, expect, need, wait</em>, and after adjectives like <em>delighted, likely, happy</em>.</p>
+              <p class="omit-example">I'm delighted <strong>to be invited</strong> to join the group.</p>
+              <p class="omit-example">That building needs <strong>to get repainted</strong>.</p>
+              <p class="omit-example">He's likely <strong>to be called</strong> for an interview.</p>
+            </div>
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ Same verb, different form</div>
+          <p>Compare these two sentences — the word before the passive decides:</p>
+          <ul>
+            <li>I remember the shock of <strong>being told</strong> the news. <span style="color:var(--text-muted);">(preposition <em>of</em> → -ing)</span></li>
+            <li>Are you still waiting <strong>to be told</strong> the results? <span style="color:var(--text-muted);">(<em>wait</em> → infinitive)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. COMMON ERRORS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>❌ Common errors</h2></div>
+      <div class="section-block-body">
+
+        <div class="error-block">
+          <div class="error-title">1. Using the past simple instead of the past participle</div>
+          <div class="inline-ex">
+            ❌ <em>A window somehow <strong>got broke</strong>.</em> &nbsp;·&nbsp; ❌ <em>My bike <strong>was stole</strong>.</em><br>
+            ✅ <em>A window somehow <strong>got broken</strong>.</em> &nbsp;·&nbsp; ✅ <em>My bike <strong>was stolen</strong>.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">2. Wrong word order in the causative</div>
+          <div class="inline-ex">
+            ❌ <em>I <strong>had fixed my car</strong> yesterday.</em> <span style="color:var(--text-muted); font-size:.85rem;">(= past perfect: I fixed it myself)</span><br>
+            ✅ <em>I <strong>had my car fixed</strong> yesterday.</em> <span style="color:var(--text-muted); font-size:.85rem;">(object before the participle)</span>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">3. Using <em>get</em> with a state verb</div>
+          <div class="inline-ex">
+            ❌ <em>She <strong>got respected</strong> by everyone.</em><br>
+            ✅ <em>She <strong>was respected</strong> by everyone.</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">4. Mixing up <em>being</em> and <em>to be</em></div>
+          <div class="inline-ex">
+            ❌ <em>I hope <strong>being included</strong> on the list.</em> &nbsp;·&nbsp; ❌ <em>Do you mind <strong>to be picked up</strong> later?</em><br>
+            ✅ <em>I hope <strong>to be included</strong> on the list.</em> &nbsp;·&nbsp; ✅ <em>Do you mind <strong>being picked up</strong> later?</em>
+          </div>
+        </div>
+
+        <div class="error-block">
+          <div class="error-title">5. Forgetting <em>be / get</em></div>
+          <div class="inline-ex">
+            ❌ <em>The incident <strong>reported</strong> to the police.</em><br>
+            ✅ <em>The incident <strong>was reported</strong> to the police.</em>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 7. STEP-BY-STEP -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>💡 Step-by-step: which passive?</h2></div>
+      <div class="section-block-body">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <div class="step-label">Did someone else do it for you (a service)?</div>
+              <div class="step-ex">Yes → causative: <strong><em>have / get</em> + object + participle</strong> → <em>I had my eyes tested.</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <div class="step-label">Is it formal, or is the verb a state verb?</div>
+              <div class="step-ex">Yes → <strong><em>be</em></strong> passive &nbsp;|&nbsp; Informal event, often unexpected → <strong><em>get</em></strong> is possible</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <div class="step-label">Does the passive come after another verb, an adjective or a preposition?</div>
+              <div class="step-ex"><em>hate, mind, remember</em>, prepositions → <strong>being</strong> + participle<br><em>hope, need, wait, likely, delighted</em> → <strong>to be</strong> + participle</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <div class="step-label">Put the tense on <em>be / get</em>.</div>
+              <div class="step-ex"><em>was reported, has been promoted, were being cleaned, got fired</em></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <div class="step-label">Check the past participle.</div>
+              <div class="step-ex"><em>broken</em> (not <em>broke</em>), <em>stolen</em> (not <em>stole</em>), <em>given, told, written</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-nav">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/passive_recognition.html" class="btn-next">Next: Recognition →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+</body>
+</html>
