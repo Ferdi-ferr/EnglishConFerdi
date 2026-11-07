@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVDD1YBYY7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SVDD1YBYY7');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verb Patterns: Reporting — Explanation · C1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:         #f5f0eb;
+      --card-bg:    #ffffff;
+      --border:     #e0d9d0;
+      --text:       #2a2420;
+      --text-muted: #7a6f65;
+      --accent:     #2c4a6e;
+      --red:        #c0392b;
+      --green:      #2d7a3e;
+      --yellow:     #8a6800;
+      --radius:     12px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.07);
+
+      --def-bg:     #eef3f8;
+      --def-border: #b0c8e0;
+      --def-accent: #2c4a6e;
+      --non-bg:     #eef6f0;
+      --non-border: #a8d4b4;
+      --non-accent: #2d7a3e;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .home-icon {
+      position: fixed;
+      top: .8rem; left: .8rem;
+      width: 72px; height: 52px;
+      background: #f5f0eb;
+      border: 1.5px solid #c9a84c;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(44,74,110,0.18);
+      transition: opacity .2s, transform .2s;
+      z-index: 100;
+      padding: 2px;
+    }
+    .home-icon:hover { opacity: .85; transform: scale(1.05); }
+
+    .breadcrumb {
+      max-width: 780px;
+      margin: 1.4rem auto .2rem;
+      padding: 0 1.5rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { margin: 0 .4rem; }
+
+    .page-header {
+      max-width: 780px;
+      margin: 1rem auto 2rem;
+      padding: 0 1.5rem;
+    }
+    .page-eyebrow {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .page-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .page-header p {
+      margin-top: .6rem;
+      font-size: .95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .section-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .section-block-header {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .section-block-header h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-block-body {
+      padding: 1.3rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .prose {
+      font-size: .93rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .prose strong { font-weight: 600; }
+    .prose em { font-style: italic; color: var(--text-muted); }
+
+    .intro-note {
+      background: var(--def-bg);
+      border-left: 3px solid var(--def-accent);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    /* Defining / Non-defining cards */
+    .type-card {
+      border-radius: 10px;
+      border: 1px solid;
+      overflow: hidden;
+    }
+    .type-card.def { background: var(--def-bg); border-color: var(--def-border); }
+    .type-card.non { background: var(--non-bg); border-color: var(--non-border); }
+
+    .type-card-header {
+      padding: .65rem 1rem;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid;
+    }
+    .type-card.def .type-card-header { color: var(--def-accent); border-color: var(--def-border); }
+    .type-card.non .type-card-header { color: var(--non-accent); border-color: var(--non-border); }
+
+    .type-card-body { padding: .9rem 1rem; }
+    .type-desc {
+      font-size: .88rem;
+      color: var(--text-muted);
+      margin-bottom: .8rem;
+      line-height: 1.55;
+    }
+
+    /* Sentence comparison */
+    .comparison { display: flex; flex-direction: column; gap: .5rem; }
+    .sentence-row { display: flex; align-items: flex-start; gap: .6rem; }
+    .sentence-label {
+      flex-shrink: 0;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      margin-top: .18rem;
+      min-width: 52px;
+      text-align: center;
+    }
+    .label-a, .label-b { background: #e8e4dc; color: #6a5f55; }
+    .label-result { color: #fff; }
+    .def .label-result { background: var(--def-accent); }
+    .non .label-result { background: var(--non-accent); }
+
+    .sentence-text { font-size: .92rem; line-height: 1.55; color: var(--text); }
+    .sentence-text .highlight {
+      font-weight: 600;
+      border-bottom: 2px solid;
+      padding-bottom: 1px;
+    }
+    .def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+
+    .arrow-row {
+      display: flex; align-items: center; gap: .6rem; padding-left: 58px;
+    }
+    .arrow-line { flex: 1; height: 1px; border-top: 1.5px dashed #ccc; }
+    .arrow-label { font-size: .7rem; color: var(--text-muted); font-style: italic; white-space: nowrap; }
+
+    /* Pronoun table */
+    .pronoun-table {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: .88rem;
+    }
+    .pronoun-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .pronoun-row.head {
+      background: var(--bg);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .pronoun-row > span {
+      padding: .65rem .9rem;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .pronoun-row > span:not(:last-child) { border-right: 1px solid var(--border); }
+    .pronoun-row:last-child > span { border-bottom: none; }
+    .tag-yes { color: var(--green); font-weight: 700; }
+    .tag-no  { color: var(--red);   font-weight: 700; }
+
+    /* Omission section */
+    .omit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 520px) { .omit-grid { grid-template-columns: 1fr; } }
+
+    .omit-card {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .omit-card-header {
+      padding: .6rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .omit-card.can    .omit-card-header { background: #eaf5ec; color: var(--green); }
+    .omit-card.cannot .omit-card-header { background: #fdf0ee; color: var(--red); }
+    .omit-card-body {
+      padding: .85rem 1rem;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .omit-desc { font-size: .83rem; color: var(--text-muted); line-height: 1.55; }
+    .omit-example {
+      font-size: .9rem;
+      line-height: 1.6;
+      font-style: italic;
+      border-left: 3px solid;
+      padding-left: .7rem;
+    }
+    .omit-card.can    .omit-example { border-color: var(--green); }
+    .omit-card.cannot .omit-example { border-color: var(--red); }
+
+    /* Watch out */
+    .watchout {
+      background: #fdf6e8;
+      border: 1px solid #e8c87a;
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: .9rem 1.1rem;
+    }
+    .watchout-title {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .watchout p { font-size: .88rem; line-height: 1.65; color: var(--text); }
+    .watchout ul {
+      margin-top: .5rem;
+      padding-left: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+    .watchout li { font-size: .88rem; line-height: 1.55; }
+
+    /* Error blocks */
+    .error-block {
+      padding-bottom: 1.2rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .error-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .error-title { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .6rem; }
+
+    .inline-ex { font-size: .88rem; line-height: 1.8; }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      margin-top: .1rem;
+    }
+    .step-body { flex: 1; }
+    .step-label { font-size: .85rem; font-weight: 600; color: var(--text-muted); margin-bottom: .3rem; }
+    .step-ex { font-size: .92rem; line-height: 1.55; color: var(--text); }
+
+    /* Position examples */
+    .position-grid { display: flex; flex-direction: column; gap: .8rem; }
+    .position-example {
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .position-example .pos-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: .35rem;
+    }
+    .pos-clause { font-weight: 600; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 1px; }
+    .pos-clause.non { color: var(--green); border-color: var(--green); }
+    .pos-comma { color: var(--red); font-weight: 700; }
+
+    /* Nav */
+    .page-nav {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: .7rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,74,110,0.2);
+      transition: opacity .15s;
+    }
+    .btn-next:hover { opacity: .85; }
+    .btn-next.locked { opacity: .45; pointer-events: none; }
+
+    .watermark {
+      font-size: 11px;
+      color: rgba(0,0,0,.18);
+      letter-spacing: .08em;
+      pointer-events: none;
+      position: fixed;
+      bottom: 12px; right: 16px;
+    }
+    @media (max-width: 560px) {
+      .pronoun-row { grid-template-columns: 1fr; }
+      .pronoun-row.head { display: none; }
+      .pronoun-row > span:not(:last-child) { border-right: none; }
+      .pronoun-row > span { border-bottom: none; padding: .35rem .9rem; }
+      .pronoun-row > span:first-child { padding-top: .8rem; }
+      .pronoun-row > span:last-child { padding-bottom: .8rem; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: .82rem; }
+      .pronoun-row:last-child > span:last-child { border-bottom: none; }
+    }
+    .comparison + .comparison { margin-top: .4rem; }
+    .comparison.def .label-result { background: var(--def-accent); }
+    .comparison.non .label-result { background: var(--non-accent); }
+    .comparison.def .highlight { color: var(--def-accent); border-color: var(--def-accent); }
+    .comparison.non .highlight { color: var(--non-accent); border-color: var(--non-accent); }
+    .sentence-label { min-width: 72px; }
+    .omit-card.inv .omit-card-header { background: var(--def-bg); color: var(--accent); }
+    .omit-card.inv .omit-example { border-color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <a href="https://ferdi-ferr.github.io/EnglishConFerdi/" class="home-icon" title="Home" aria-label="Go to home">
+    <svg width="64" height="44" viewBox="0 0 64 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="36" width="64" height="8" fill="#1a3a5c" rx="0"/>
+      <rect x="2" y="28" width="60" height="4" fill="#d4c9b8" rx="1"/>
+      <rect x="10" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="9"  y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="13" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="17" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M10,22 Q15,18 20,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="44" y="10" width="10" height="22" fill="#c9a84c" rx="1"/>
+      <rect x="43" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="47" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <rect x="51" y="7"  width="3" height="5" fill="#c9a84c" rx="1"/>
+      <path d="M44,22 Q49,18 54,22" fill="none" stroke="#1a3a5c" stroke-width="1.5"/>
+      <rect x="20" y="14" width="24" height="3" fill="#b8a070" rx="1"/>
+      <line x1="2"  y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="10" y1="28" x2="15" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="62" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <line x1="54" y1="28" x2="49" y2="12" stroke="#e8d48a" stroke-width="1"/>
+      <text x="32" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-size="6" font-weight="700" fill="#1a3a5c" letter-spacing="1">HOME</text>
+    </svg>
+  </a>
+
+  <nav class="breadcrumb">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/">Home</a><span>›</span>
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/c1.html">C1</a><span>›</span>
+    Grammar<span>›</span>
+    Verb Patterns: Reporting<span>›</span>
+    <span>Explanation</span>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Grammar · C1</p>
+    <h1>Verb Patterns: Reporting</h1>
+    <p>When we report what someone said, asked or ordered, the <strong>reporting verb</strong> decides the pattern that follows: <em>that</em> + clause, <em>if / wh-</em> + statement order, object + <em>to</em>-infinitive, or <em>that</em> + subject + base form.</p>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. FOUR PATTERNS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Four basic patterns</h2></div>
+      <div class="section-block-body">
+        <div class="pronoun-table">
+          <div class="pronoun-row head">
+            <span>What was said</span>
+            <span>Pattern</span>
+            <span>Example</span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Statement</strong></span>
+            <span><em>say / tell sb</em> + (<em>that</em>) + clause</span>
+            <span><em>They <strong>said (that)</strong> the internet <strong>was</strong> down.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>wh- question</strong></span>
+            <span><em>ask / wonder</em> + <em>wh-</em> word + statement order</span>
+            <span><em>I <strong>wondered what</strong> life without electricity <strong>was</strong> like.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>yes/no question</strong></span>
+            <span><em>ask (sb)</em> + <em>if / whether</em> + statement order</span>
+            <span><em>They <strong>asked</strong> me <strong>if</strong> they <strong>should catch</strong> an earlier train.</em></span>
+          </div>
+          <div class="pronoun-row">
+            <span><strong>Command / request</strong></span>
+            <span><em>tell / ask / order / warn</em> + object + (<em>not</em>) <em>to</em> + verb</span>
+            <span><em>He <strong>ordered us to put</strong> down our devices.</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. BACKSHIFT -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Backshift: one step into the past</h2></div>
+      <div class="section-block-body">
+        <p class="prose">When the reporting verb is in the past (<em>said, asked, told</em>), the verb in the reported part usually moves <strong>one step back</strong> in time. Pronouns, time and place words change too.</p>
+        <div class="pronoun-table">
+          <div class="pronoun-row head">
+            <span>Direct speech</span>
+            <span>Reported speech</span>
+            <span>Example</span>
+          </div>
+          <div class="pronoun-row"><span>present simple</span><span>past simple</span><span><em>“It <strong>is</strong> down.” → they said it <strong>was</strong> down</em></span></div>
+          <div class="pronoun-row"><span>present continuous</span><span>past continuous</span><span><em>“I'm <strong>coming</strong>.” → she said she <strong>was coming</strong></em></span></div>
+          <div class="pronoun-row"><span>past simple / present perfect</span><span>past perfect</span><span><em>“I've <strong>lost</strong> my keys.” → she said she <strong>had lost</strong> her keys</em></span></div>
+          <div class="pronoun-row"><span><em>will / can / may</em></span><span><em>would / could / might</em></span><span><em>“We'<strong>ll</strong> call.” → they said they <strong>would</strong> call</em></span></div>
+          <div class="pronoun-row"><span><em>tomorrow / yesterday</em></span><span><em>the next day / the day before</em></span><span><em>“…tomorrow.” → …<strong>the next day</strong></em></span></div>
+          <div class="pronoun-row"><span><em>this / here / now</em></span><span><em>that / there / then</em></span><span><em>“I like <strong>this</strong> place.” → he said he liked <strong>that</strong> place</em></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. QUESTIONS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Reported questions: statement word order</h2></div>
+      <div class="section-block-body">
+        <p class="prose">A reported question is <strong>not</strong> a question any more: use <strong>subject + verb</strong> order, no <em>do / does / did</em>, and no question mark.</p>
+        <div class="comparison def">
+          <div class="sentence-row">
+            <span class="sentence-label label-a">Direct</span>
+            <span class="sentence-text">“Where <strong>do you live</strong>?” she asked me.</span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Reported</span>
+            <span class="sentence-text">She asked me where <span class="highlight">I lived</span>.</span>
+          </div>
+        </div>
+        <div class="comparison non">
+          <div class="sentence-row">
+            <span class="sentence-label label-a">Direct</span>
+            <span class="sentence-text">“<strong>Are you</strong> coming to the party?” Leo asked.</span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Reported</span>
+            <span class="sentence-text">Leo asked me <span class="highlight">if / whether I was</span> coming to the party.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. SAY vs TELL / COMMANDS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>say vs tell, and reporting commands</h2></div>
+      <div class="section-block-body">
+        <div class="omit-grid">
+          <div class="omit-card inv">
+            <div class="omit-card-header">say — no person after it</div>
+            <div class="omit-card-body">
+              <p class="omit-example">She <strong>said</strong> (that) she was tired.</p>
+              <p class="omit-example">She <strong>said to me</strong> (that) she was tired.</p>
+            </div>
+          </div>
+          <div class="omit-card can">
+            <div class="omit-card-header">tell — always tell somebody</div>
+            <div class="omit-card-body">
+              <p class="omit-example">She <strong>told me</strong> (that) she was tired.</p>
+              <p class="omit-example">He <strong>told us to wait</strong> outside.</p>
+            </div>
+          </div>
+        </div>
+        <div class="position-grid">
+          <div class="position-example">
+            <span class="pos-label">Command → object + to + verb</span>
+            “Put down your devices!” → He <span class="pos-clause">ordered us to put</span> down our devices.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">Negative command → object + not to + verb</span>
+            “Please don't be late.” → The teacher <span class="pos-clause">asked the students not to be</span> late.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PRESENT -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>Reporting in the present: no backshift</h2></div>
+      <div class="section-block-body">
+        <p class="prose">When the reporting verb is in the <strong>present</strong> (<em>says, tells, often tells</em>) — for something said regularly or still true now — the tenses <strong>don't change</strong>.</p>
+        <div class="position-grid">
+          <div class="position-example">
+            <span class="pos-label">Present reporting verb → same tense</span>
+            My teacher <span class="pos-clause">says</span> my progress <span class="pos-clause non">is</span> good.
+          </div>
+          <div class="position-example">
+            <span class="pos-label">Habit / still true</span>
+            My friends often <span class="pos-clause">tell</span> me about the latest technology they <span class="pos-clause non">want</span>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. SUBJUNCTIVE -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>The subjunctive after demand, suggest, insist, recommend</h2></div>
+      <div class="section-block-body">
+        <p class="prose">After verbs like <em>demand, suggest, insist, recommend, request</em> + <em>that</em>, we use the <strong>base form</strong> of the verb for every subject — no <em>-s</em>, no past, no backshift. The negative is <em>not</em> + base form.</p>
+        <div class="comparison def">
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Subjunctive</span>
+            <span class="sentence-text">I demanded that they <span class="highlight">give</span> me a pay raise.</span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Subjunctive</span>
+            <span class="sentence-text">We suggested that he <span class="highlight">try</span> a different smartwatch. <span style="color:var(--text-muted);font-size:.82rem;">(not <em>tries / tried</em>)</span></span>
+          </div>
+          <div class="sentence-row">
+            <span class="sentence-label label-result">Negative</span>
+            <span class="sentence-text">The doctor recommended that she <span class="highlight">not drink</span> coffee.</span>
+          </div>
+        </div>
+        <div class="watchout">
+          <div class="watchout-title">⚠ suggest doesn't take an object + to</div>
+          <ul>
+            <li>❌ <em>We suggested <strong>him to try</strong> a different smartwatch.</em></li>
+            <li>✅ <em>We suggested <strong>(that) he try</strong> a different smartwatch.</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. COMMON ERRORS -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>❌ Common errors</h2></div>
+      <div class="section-block-body">
+        <div class="error-block">
+          <div class="error-title">1. Question word order in a reported question</div>
+          <div class="inline-ex">
+            ❌ <em>She asked me where <strong>did I live</strong>.</em><br>
+            ✅ <em>She asked me where <strong>I lived</strong>.</em>
+          </div>
+        </div>
+        <div class="error-block">
+          <div class="error-title">2. <em>say</em> + person</div>
+          <div class="inline-ex">
+            ❌ <em>He <strong>said me</strong> that he was busy.</em><br>
+            ✅ <em>He <strong>told me</strong> that he was busy.</em> &nbsp;·&nbsp; ✅ <em>He <strong>said</strong> that he was busy.</em>
+          </div>
+        </div>
+        <div class="error-block">
+          <div class="error-title">3. Forgetting to backshift after a past reporting verb</div>
+          <div class="inline-ex">
+            ❌ <em>Ana told me she <strong>has lost</strong> her keys.</em><br>
+            ✅ <em>Ana told me she <strong>had lost</strong> her keys.</em>
+          </div>
+        </div>
+        <div class="error-block">
+          <div class="error-title">4. <em>that</em> or a full clause after <em>tell / ask</em> for commands</div>
+          <div class="inline-ex">
+            ❌ <em>The guard told the children <strong>don't touch</strong> the paintings.</em><br>
+            ✅ <em>The guard told the children <strong>not to touch</strong> the paintings.</em>
+          </div>
+        </div>
+        <div class="error-block">
+          <div class="error-title">5. Adding <em>-s</em> or backshifting in the subjunctive</div>
+          <div class="inline-ex">
+            ❌ <em>I demanded that he <strong>gives / gave</strong> me a refund.</em><br>
+            ✅ <em>I demanded that he <strong>give</strong> me a refund.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. STEP-BY-STEP -->
+    <div class="section-block">
+      <div class="section-block-header"><h2>💡 Step-by-step: reporting what someone said</h2></div>
+      <div class="section-block-body">
+        <div class="steps">
+          <div class="step"><span class="step-num">1</span><div class="step-body">
+            <div class="step-label">What kind of sentence is it?</div>
+            <div class="step-ex">statement · wh- question · yes/no question · command · suggestion / demand</div>
+          </div></div>
+          <div class="step"><span class="step-num">2</span><div class="step-body">
+            <div class="step-label">Choose the reporting verb and its pattern.</div>
+            <div class="step-ex"><em>said (that)</em> · <em>asked where…</em> · <em>asked if…</em> · <em>told sb to…</em> · <em>suggested that sb + base verb</em></div>
+          </div></div>
+          <div class="step"><span class="step-num">3</span><div class="step-body">
+            <div class="step-label">Past reporting verb? Backshift.</div>
+            <div class="step-ex"><em>is → was</em>, <em>have lost → had lost</em>, <em>will → would</em>, <em>tomorrow → the next day</em> — but not in the subjunctive, and not after <em>says / tells</em>.</div>
+          </div></div>
+          <div class="step"><span class="step-num">4</span><div class="step-body">
+            <div class="step-label">Change pronouns and possessives.</div>
+            <div class="step-ex">“I've lost <strong>my</strong> keys,” Ana told <strong>me</strong>. → Ana told me <strong>she</strong> had lost <strong>her</strong> keys.</div>
+          </div></div>
+          <div class="step"><span class="step-num">5</span><div class="step-body">
+            <div class="step-label">Questions: check the word order.</div>
+            <div class="step-ex">subject + verb, no <em>do / did</em>, no question mark.</div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-nav">
+    <a href="https://ferdi-ferr.github.io/EnglishConFerdi/reporting_recognition.html" class="btn-next">Next: Recognition →</a>
+  </div>
+
+  <div class="watermark">English Practice con Ferdi</div>
+
+</body>
+</html>
